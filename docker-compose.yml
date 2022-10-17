@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  app:
+    image: altay
+    container_name: altay
+    restart: always
+    ports:
+      - "5900:8000"
