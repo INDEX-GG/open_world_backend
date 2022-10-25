@@ -3,6 +3,11 @@ services:
   app:
     image: altay
     container_name: altay
+    volumes:
+      - media:/code/media
     restart: always
     ports:
       - "5900:8000"
+
+volumes:
+  media:

@@ -20,6 +20,9 @@ DEBUG = config.DEBUG
 
 ALLOWED_HOSTS = config.ALLOWED_HOSTS
 
+# Auth
+AUTH_USER_MODEL = 'users.User'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -34,11 +37,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'rest_framework.authtoken',
-
-    # 'dj_rest_auth',
-
-    # 'allauth',
-    # 'allauth.account',
+    'rest_framework_simplejwt',
 
     'apps.users.apps.UsersConfig',
     'apps.emails.apps.EmailsConfig',
@@ -145,17 +144,17 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser'
     ),
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # )
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
 }
 
 # REST_AUTH_SERIALIZERS = {
 #     'USER_DETAILS_SERIALIZER': 'apps.users.serializers.UserSerializer',
 # }
 
-# Auth
-AUTH_USER_MODEL = 'users.CustomUser'
 
 # ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 # ACCOUNT_EMAIL_REQUIRED = True
@@ -177,4 +176,3 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = config.EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'lndix@job.me'

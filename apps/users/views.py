@@ -1,17 +1,34 @@
-from rest_framework.views import APIView
-from .serializers import UserRegistrationSerializer
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import generics
+from rest_framework.response import Response
+
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from .models import User
+from .serializers import UserRegistrationSerializer
+from .utils import Util
 
 
-class UserRegistrationAPIView(APIView):
+class UserRegistrationView(generics.GenericAPIView):
     serializer_class = UserRegistrationSerializer
 
-    def post(self, requests):
-        serializer = self.serializer_class(data=requests.data)
+    def post(self, request):
+        user = request.data
+        serializer = self.serializer_class(data=user)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        user_data = serializer.data
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        my_user = User.objects.get(email=user_data['email'])
+        token = RefreshToken.for_user(my_user)
 
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        data = {'domain': 'domain'}
+
+        Util.send_email(data)
+
+        return Response(user_data, status=status.HTTP_201_CREATED)
+
+
+class VerifyEmail(generics.GenericAPIView):
+    def get(self):
+        pass
