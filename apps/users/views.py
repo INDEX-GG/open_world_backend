@@ -29,6 +29,6 @@ class UserRegistrationView(generics.GenericAPIView):
         return Response(user_data, status=status.HTTP_201_CREATED)
 
 
-class VerifyEmail(generics.GenericAPIView):
-    def get(self):
-        pass
+# class VerifyEmail(generics.GenericAPIView):
+#     def get(self):
+#         pass
