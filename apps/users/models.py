@@ -8,6 +8,7 @@ from .managers import CustomUserManager
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    # validators = [validators.EmailValidator],
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -28,7 +29,7 @@ class CustomUser(AbstractUser):
 
 
 class Children(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='parents_children')
     name = models.CharField('Имя', blank=True, max_length=100)
     lastname = models.CharField('Фамилия', blank=True, max_length=100)
     patronymic = models.CharField('Отчество', blank=True, max_length=100)

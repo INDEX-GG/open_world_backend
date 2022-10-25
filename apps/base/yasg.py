@@ -5,9 +5,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="APK Alekseevski",
+        title="Altay Backend",
         default_version='v1',
-        description="Docs for api APK Alekseevski",
+        description="Docs for api Altay Backend",
     ),
     public=True,
     # permission_classes=(permissions.AllowAny,),
