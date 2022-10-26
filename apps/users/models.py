@@ -1,26 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin)
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.utils.translation import gettext_lazy as _
+
+from .utils import Util
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password=None):
-        if email is None:
-            raise TypeError('The Email must be set')
-        user = self.model(email=self.normalize_email(email))
+    def create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError(_('The Email must be set'))
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save()
         return user
 
-    def create_superuser(self, email, password=None):
-        if password is None:
-            raise TypeError('Password should not be none')
-
-        user = self.create_user(email, password)
-        user.is_superuser = True
-        user.is_staff = True
-        user.save()
-        return user
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError(_('Superuser must have is_staff=True.'))
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError(_('Superuser must have is_superuser=True.'))
+        return self.create_user(email, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -37,6 +42,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
+    code = models.CharField('Код', blank=True, max_length=100)
     name = models.CharField('Имя', blank=True, max_length=100)
     lastname = models.CharField('Фамилия', blank=True, max_length=100)
     patronymic = models.CharField('Отчество', blank=True, max_length=100)
@@ -46,7 +52,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def tokens(self):
-        return ''
+        refresh = RefreshToken.for_user(self)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token)
+        }
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -63,7 +73,7 @@ class Children(models.Model):
     program_number = models.CharField('Номер программы', blank=True, max_length=100)
 
     def __str__(self):
-        return self.name + ' ' + self.lastname + ' ' + self.program_number
+        return self.name + ' ' + self.lastname
 
     class Meta:
         verbose_name = 'Ребенок'
@@ -71,8 +81,8 @@ class Children(models.Model):
 
 
 class EmailCode(models.Model):
-    email = models.CharField('email', max_length=100)
-    code = models.CharField('code', max_length=100)
+    email = models.CharField('email', max_length=100, unique=True)
+    code = models.CharField('code', max_length=6)
 
     def __str__(self):
         return self.email
