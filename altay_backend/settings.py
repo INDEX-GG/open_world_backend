@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'apps.authentication.apps.AuthConfig',
     'apps.users.apps.UsersConfig',
     'apps.news.apps.NewsConfig',
+    'apps.feedback.apps.FeedbackConfig',
 ]
 
 MIDDLEWARE = [
@@ -127,8 +128,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # DJANGO REST FRAMEWORK
 REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': (
-        'rest_framework.parsers.FormParser',
-        'rest_framework.parsers.MultiPartParser'
+        'rest_framework.parsers.JSONParser',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
