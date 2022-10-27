@@ -1,29 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionsMixin)
+    AbstractBaseUser, PermissionsMixin)
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.utils.translation import gettext_lazy as _
 
-
-class UserManager(BaseUserManager):
-    def create_user(self, email, password, **extra_fields):
-        if not email:
-            raise ValueError(_('The Email must be set'))
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save()
-        return user
-
-    def create_superuser(self, email, password, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError(_('Superuser must have is_staff=True.'))
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError(_('Superuser must have is_superuser=True.'))
-        return self.create_user(email, password, **extra_fields)
+from ..authentication.models import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -75,13 +55,3 @@ class Children(models.Model):
     class Meta:
         verbose_name = 'Ребенок'
         verbose_name_plural = 'Дети'
-
-
-# TODO: Проверка email на уникальность, создание новой записи при новом коде
-# TODO: Удаление модели при успешной регистрации пользователя
-class EmailCode(models.Model):
-    email = models.CharField('email', max_length=64, unique=True)
-    code = models.CharField('code', max_length=6)
-
-    def __str__(self):
-        return self.email

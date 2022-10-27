@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import User, Children, EmailCode
+from .models import User, Children
 
 admin.site.register(User)
 admin.site.register(Children)
-admin.site.register(EmailCode)

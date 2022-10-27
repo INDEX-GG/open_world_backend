@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
 
+    'apps.authentication.apps.AuthConfig',
     'apps.users.apps.UsersConfig',
     'apps.news.apps.NewsConfig',
 ]
