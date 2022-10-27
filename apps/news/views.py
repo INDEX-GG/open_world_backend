@@ -20,12 +20,12 @@ class NewsViewSet(viewsets.ModelViewSet):
 
 
 def news_create():
-    for i in range(1, 200):
-        new = News(title='News' + str(i), description='News' + str(i), text='News' + str(i))
+    for i in range(204, 404):
+        new = News(title='News' + str(i), description='News' + str(i))
         new.save()
-        images1 = Images(news_id=i, src='img/1.jpg')
+        images1 = Images(news_id=i, src='images/news/1.jpg')
         images1.save()
-        images2 = Images(news_id=i, src='img/2.jpg')
+        images2 = Images(news_id=i, src='images/news/2.jpg')
         images2.save()
-        images3 = Images(news_id=i, src='img/3.jpg')
+        images3 = Images(news_id=i, src='images/news/3.jpg')
         images3.save()
