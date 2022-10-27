@@ -56,7 +56,13 @@ class EmailForVerificationView(CreateAPIView):
 
     def create(self, request):
         code = Util.generate_code()
+
+        email = request.data['email']
+        if EmailCode.objects.filter(email=email).exists():
+            EmailCode.objects.filter(email=email).delete()
+
         created = EmailCode.objects.create(email=request.data['email'], code=code)
+
         if created:
             data = request.data
             email = data['email']

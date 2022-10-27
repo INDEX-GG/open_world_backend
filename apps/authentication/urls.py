@@ -9,5 +9,4 @@ urlpatterns = [
     path('auth/registration/email-verify/', views.VerifyCodeAPIView.as_view(), name='registration'),
     path('auth/login/', views.LoginAPIView.as_view(), name='login'),
     path('auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
 ]
