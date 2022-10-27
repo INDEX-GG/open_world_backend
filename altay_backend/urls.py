@@ -11,7 +11,7 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('api/v1/', include('apps.users.urls')),
     path('api/v1/', include('apps.authentication.urls')),
-    # path('api/v1/', include('apps.feedback.urls')),
+    path('api/v1/', include('apps.feedback.urls')),
 ]
 
 urlpatterns += doc_urls

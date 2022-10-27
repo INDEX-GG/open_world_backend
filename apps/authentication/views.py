@@ -1,7 +1,5 @@
-from django.contrib.auth import get_user_model
-from rest_framework import status, views
+from rest_framework import status
 from rest_framework import generics
-from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView, GenericAPIView
 from rest_framework.response import Response
 
 from .serializers import *
@@ -34,7 +32,7 @@ class LoginAPIView(generics.GenericAPIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class VerifyCodeAPIView(GenericAPIView):
+class VerifyCodeAPIView(generics.GenericAPIView):
     serializer_class = VerifyCodeSerializer
 
     def post(self, request):
@@ -50,7 +48,7 @@ class VerifyCodeAPIView(GenericAPIView):
             return Response({"email": email, "result": False}, status=status.HTTP_404_NOT_FOUND)
 
 
-class EmailForVerificationView(CreateAPIView):
+class EmailForVerificationView(generics.CreateAPIView):
     queryset = EmailCode.objects.all()
     serializer_class = EmailCodeSerializer
 
@@ -63,6 +61,7 @@ class EmailForVerificationView(CreateAPIView):
 
         created = EmailCode.objects.create(email=request.data['email'], code=code)
 
+        # TODO: Проверка отправилось ли письмо
         if created:
             data = request.data
             email = data['email']

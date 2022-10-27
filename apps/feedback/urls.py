@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
+from apps.feedback import views
 
 urlpatterns = [
-    path('feedback/', views.FeedbackView.as_view(), name='user'),
+    path('feedback/', views.FeedbackAPIView.as_view(), name='feedback'),
 ]
