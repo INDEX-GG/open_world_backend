@@ -60,14 +60,16 @@ class EmailForVerificationView(generics.CreateAPIView):
             EmailCode.objects.filter(email=email).delete()
 
         created = EmailCode.objects.create(email=request.data['email'], code=code)
-
         # TODO: Проверка отправилось ли письмо
-        if created:
-            data = request.data
-            email = data['email']
-            Util.send_verification_mail(email, code)
-            return Response({"email": email, 'result': True}, status=status.HTTP_200_OK)
+        if User.objects.filter(email=email).exists():
+            return Response({"email": email, 'result': False}, status=status.HTTP_409_CONFLICT)
         else:
-            data = request.data
-            email = data['email']
-            return Response({"email": email, 'result': False}, status=status.HTTP_404_NOT_FOUND)
+            if created:
+                data = request.data
+                email = data['email']
+                Util.send_verification_mail(email, code)
+                return Response({"email": email, 'result': True}, status=status.HTTP_200_OK)
+            else:
+                data = request.data
+                email = data['email']
+                return Response({"email": email, 'result': False}, status=status.HTTP_404_NOT_FOUND)

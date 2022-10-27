@@ -24,7 +24,6 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-# TODO: Проверка email на уникальность, создание новой записи при новом коде
 # TODO: Удаление модели при успешной регистрации пользователя
 class EmailCode(models.Model):
     email = models.CharField('email', max_length=64, unique=True)
