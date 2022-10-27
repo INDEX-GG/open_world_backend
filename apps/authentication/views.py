@@ -4,9 +4,6 @@ from rest_framework import generics
 from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView, GenericAPIView
 from rest_framework.response import Response
 
-
-from .models import EmailCode
-from ..base.permissions import IsOwnerProfile
 from .serializers import *
 from .utils import Util
 
