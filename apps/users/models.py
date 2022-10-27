@@ -29,7 +29,6 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     username = None
     email = models.EmailField('email address', unique=True, max_length=255)
-    is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -39,7 +38,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
-
+    # TODO: Убрать код из модели пользователя
     code = models.CharField('Код', blank=True, max_length=100)
     name = models.CharField('Имя', blank=True, max_length=100)
     lastname = models.CharField('Фамилия', blank=True, max_length=100)
