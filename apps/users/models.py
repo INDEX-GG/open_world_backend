@@ -4,8 +4,6 @@ from django.contrib.auth.models import (
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.utils.translation import gettext_lazy as _
 
-from .utils import Util
-
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
@@ -80,8 +78,10 @@ class Children(models.Model):
         verbose_name_plural = 'Дети'
 
 
+# TODO: Проверка email на уникальность, создание новой записи при новом коде
+# TODO: Удаление модели при успешной регистрации пользователя
 class EmailCode(models.Model):
-    email = models.CharField('email', max_length=100, unique=True)
+    email = models.CharField('email', max_length=64, unique=True)
     code = models.CharField('code', max_length=6)
 
     def __str__(self):

@@ -31,7 +31,6 @@ class UserRegistrationView(generics.GenericAPIView):
             return Response({"invalid": "Invalid code", "email": email}, status=status.HTTP_404_NOT_FOUND)
 
 
-
 class LoginAPIView(generics.GenericAPIView):
     serializer_class = LoginSerializer
 
@@ -58,7 +57,7 @@ class ChildrenViewSet(generics.CreateAPIView):
     permission_classes = (IsOwnerProfile,)
 
 
-class ChildrenItemViewSet(generics.UpdateAPIView):
+class ChildrenItemViewSet(generics.RetrieveUpdateDestroyAPIView):
     queryset = Children.objects.all()
     serializer_class = ChildrenItemSerializer
     permission_classes = (IsOwnerProfile,)
@@ -92,3 +91,8 @@ class EmailForVerificationView(CreateAPIView):
             email = data['email']
             Util.send_verification_mail(email, code)
             return Response({"email": email, 'result': True}, status=status.HTTP_200_OK)
+        else:
+            data = request.data
+            email = data['email']
+            return Response({"email": email, 'result': False}, status=status.HTTP_404_NOT_FOUND)
+
