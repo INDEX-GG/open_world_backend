@@ -5,16 +5,55 @@ from altay_backend.config import EMAIL_HOST_USER
 class Util:
     @staticmethod
     def send_feedback_mail(data):
-        municipality = data['municipality']
-        family_status = data['family_status']
-        child_age = data['child_age']
-        disabled_person = data['disabled_person']
-        limited_person = data['limited_person']
-        specialist = data['specialist']
-        counseling_theme = data['counseling_theme']
-        other = data['other']
-        phone = data['phone']
-        email = data['email']
+        if data['municipality'] != '':
+            municipality = data['municipality']
+        else:
+            municipality = 'Не указано'
+
+        if data['family_status'] != '':
+            family_status = data['family_status']
+        else:
+            family_status = 'Не указано'
+
+        if data['child_age'] != '':
+            child_age = data['child_age']
+        else:
+            child_age = 'Не указано'
+
+        if data['disabled_person'] != '':
+            disabled_person = data['disabled_person']
+        else:
+            disabled_person = 'Не указано'
+
+        if data['limited_person'] != '':
+            limited_person = data['limited_person']
+        else:
+            limited_person = 'Не указано'
+
+        if data['specialist'] != '':
+            specialist = data['specialist']
+        else:
+            specialist = 'Не указано'
+
+        if data['counseling_theme'] != '':
+            counseling_theme = data['counseling_theme']
+        else:
+            counseling_theme = 'Не указано'
+
+        if data['other'] != '':
+            other = data['other']
+        else:
+            other = 'Не указано'
+
+        if data['phone'] != '':
+            phone = data['phone']
+        else:
+            phone = 'Не указано'
+
+        if data['email'] != '':
+            email = data['email']
+        else:
+            email = 'Не указано'
 
         subject = 'Обратная связь'
         message = f'Наименование муниципального образования: {municipality}\n' \

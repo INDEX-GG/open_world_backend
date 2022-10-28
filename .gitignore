@@ -6,6 +6,8 @@ __pycache__
 db.sqlite3
 !*media/.gitkeep
 media/*
+!*static/.gitkeep
+static/*
 altay_backend/config.py
 
 # Backup files # 

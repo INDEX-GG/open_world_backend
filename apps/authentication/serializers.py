@@ -1,19 +1,22 @@
 from rest_framework import serializers
 from django.contrib import auth
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework import status
+from rest_framework.response import Response
 
 from .models import EmailCode
 from ..users.models import User
 
 
-class EmailCodeSerializer(serializers.ModelSerializer):
+class SendCodeSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(max_length=64)
+
     class Meta:
         model = EmailCode
         fields = ['email']
 
 
-class VerifyCodeSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(max_length=255)
+class ConfirmationCodeSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(max_length=64)
     code = serializers.CharField(max_length=6)
 
     class Meta:
@@ -22,7 +25,7 @@ class VerifyCodeSerializer(serializers.ModelSerializer):
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(max_length=68, min_length=6, write_only=True)
+    password = serializers.CharField(max_length=30, min_length=6, write_only=True)
     code = serializers.CharField(max_length=6)
 
     class Meta:
@@ -32,16 +35,19 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         email = attrs.get('email', '')
         if not email:
-            raise serializers.ValidationError('The email should be only contain alphanumeric')
+            raise serializers.ValidationError('')
         return attrs
 
     def create(self, validated_data):
-        return User.objects.create_user(**validated_data)
+        user = User.objects.create_user(**validated_data)
+        user.code = ''
+        user.save()
+        return user
 
 
 class LoginSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(max_length=255, min_length=3)
-    password = serializers.CharField(max_length=64, min_length=6, write_only=True)
+    email = serializers.EmailField(max_length=64)
+    password = serializers.CharField(max_length=30, min_length=6, write_only=True)
     tokens = serializers.CharField(max_length=68, min_length=6, read_only=True)
 
     class Meta:
@@ -55,9 +61,10 @@ class LoginSerializer(serializers.ModelSerializer):
         user = auth.authenticate(email=email, password=password)
 
         if not user:
-            raise AuthenticationFailed('Invalid credentials, try again')
+            return Response({'result': False, 'email': 'Такого пользователя не существует'},
+                            status=status.HTTP_404_NOT_FOUND)
 
         return {
-            'email': user.email,
-            'tokens': user.tokens,
+            "email": user.email,
+            "tokens": user.tokens,
         }

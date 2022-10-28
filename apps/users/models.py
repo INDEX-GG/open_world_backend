@@ -1,3 +1,5 @@
+import json
+
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser, PermissionsMixin)
@@ -18,7 +20,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
-    # TODO: Убрать код из модели пользователя
     code = models.CharField('Код', blank=True, max_length=100)
     name = models.CharField('Имя', blank=True, max_length=100)
     lastname = models.CharField('Фамилия', blank=True, max_length=100)
@@ -30,10 +31,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def tokens(self):
         refresh = RefreshToken.for_user(self)
-        return {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token)
-        }
+        return json.dumps({
+            "refresh": str(refresh),
+            "access": str(refresh.access_token)
+        })
 
     class Meta:
         verbose_name = 'Пользователь'

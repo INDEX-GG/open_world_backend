@@ -13,6 +13,8 @@ class FeedbackAPIView(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
-        email = serializer.validated_data['email']
-        Util.send_feedback_mail(data)
-        return Response({"email": email, 'result': True}, status=status.HTTP_200_OK)
+        created = Util.send_feedback_mail(data)
+        if created:
+            return Response({'result': True}, status=status.HTTP_200_OK)
+        else:
+            return Response({'result': False, 'email': ['Ошибка отправления']}, status=status.HTTP_200_OK)

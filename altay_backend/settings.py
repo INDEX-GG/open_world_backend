@@ -71,38 +71,38 @@ TEMPLATES = [
 WSGI_APPLICATION = 'altay_backend.wsgi.application'
 
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config.NAME,
-        'USER': config.USER,
-        'PASSWORD': config.PASSWORD,
-        'HOST': config.HOST,
-        'PORT': config.PORT
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': config.NAME,
+#         'USER': config.USER,
+#         'PASSWORD': config.PASSWORD,
+#         'HOST': config.HOST,
+#         'PORT': config.PORT
 #     }
 # }
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    # },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    # },
 ]
 
 # Internationalization
@@ -116,8 +116,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
