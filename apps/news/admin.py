@@ -8,7 +8,7 @@ class ImageInline(admin.TabularInline):
 
 
 @admin.register(News)
-class ProductAdmin(admin.ModelAdmin):
+class NewsAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ['title']
     inlines = [ImageInline, ]

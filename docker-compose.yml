@@ -4,21 +4,22 @@ services:
     image: altay
     container_name: altay
     command: sh -c "gunicorn --bind 0.0.0.0:8000 altay_backend.wsgi"
-
     volumes:
-      - static_data:/altay/static
-      - media:/altay/media
+      - static_volume:static
     restart: always
     ports:
       - "5900:8000"
   nginx:
-    image: nginx:1.19.8-alpine
+    container_name: altay_nginx
+    restart: on-failure
+    image: nginx:1.19.8
+    volumes:
+      - ./nginx/prod/nginx.conf:/etc/nginx/conf.d/default.conf
+      - static_volume:static
     depends_on:
       - app
     ports:
-      - "80:80"
-    volumes:
-      - static_data:/altay/static
+      - "1337:80"
 
 volumes:
   media:
