@@ -7,6 +7,8 @@ WORKDIR /code
 
 COPY ./requirements.txt /code/requirements.txt
 
+RUN mkdir $APP_HOME/static
+
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY ./ /code/
