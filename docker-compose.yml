@@ -3,17 +3,23 @@ services:
   app:
     image: altay
     container_name: altay
-    command: bash -c "python manage.py migrate
-      && python manage.py collectstatic --noinput
-      && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "gunicorn --bind 0.0.0.0:8000 altay_backend.wsgi"
 
     volumes:
-      - media:/code/media
-      - static:/code/static
+      - static_data:/altay/static
+      - media:/altay/media
     restart: always
     ports:
       - "5900:8000"
+  nginx:
+    image: nginx:1.19.8-alpine
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+    volumes:
+      - static_data:/altay/static
 
 volumes:
   media:
-  static:
+  static_data:
