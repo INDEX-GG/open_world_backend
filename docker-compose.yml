@@ -5,11 +5,9 @@ services:
     container_name: altay
     volumes:
       - media:/code/media
-      - static:/code/static
     restart: always
     ports:
       - "5900:8000"
 
 volumes:
   media:
-  static:
