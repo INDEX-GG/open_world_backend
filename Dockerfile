@@ -3,13 +3,12 @@ FROM python:3.10.4
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-WORKDIR /code
+WORKDIR /altay
 
-COPY ./requirements.txt /code/requirements.txt
+RUN pip install --upgrade pip
 
-RUN mkdir $APP_HOME/static
+COPY ./requirements.txt /altay/requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /altay/requirements.txt
 
-COPY ./ /code/
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+COPY . /altay/
