@@ -1,7 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework import status
 from rest_framework import generics
-from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import *
 from .utils import Util
@@ -87,3 +86,71 @@ class LoginAPIView(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ResetSendCodeView(generics.CreateAPIView):
+    serializer_class = ResetSendCodeSerializer
+
+    def create(self, request):
+        email_serializer = ResetSendCodeSerializer(data=request.data)
+        email_serializer.is_valid(raise_exception=True)
+
+        email = request.data['email']
+
+        if User.objects.filter(email=email).exists():
+            if ResetEmailCode.objects.filter(email=email).exists():
+                ResetEmailCode.objects.filter(email=email).delete()
+
+            code = Util.generate_code()
+            created = ResetEmailCode.objects.create(email=email, code=code)
+
+            if created:
+                email = request.data['email']
+                Util.send_reset_password_mail(email, code)
+                return Response({'result': True}, status=status.HTTP_200_OK)
+            else:
+                return Response({"result": False, "email": ['Не удалось отправить код']},
+                                status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({'result': False, "email": ['Пользователя с таким email не существует.']},
+                            status=status.HTTP_404_NOT_FOUND)
+
+
+class ResetConfirmationCodeAPIView(generics.GenericAPIView):
+    serializer_class = ResetConfirmationCodeSerializer
+
+    def post(self, request):
+        verify_serializer = ResetConfirmationCodeSerializer(data=request.data)
+        verify_serializer.is_valid(raise_exception=True)
+        data = verify_serializer.data
+        code = data.get('code')
+        email = data.get('email')
+
+        if User.objects.filter(email=email).exists():
+            try:
+                email_for_reset = ResetEmailCode.objects.get(email=email)
+                if code == email_for_reset.code:
+                    return Response({"result": True}, status=status.HTTP_200_OK)
+                else:
+                    return Response({"result": False, "email": ['Неправильный код']}, status=status.HTTP_404_NOT_FOUND)
+            except ObjectDoesNotExist:
+                return Response({'result': False}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({'result': False, "email": ['Пользователя с таким email не существует.']},
+                            status=status.HTTP_404_NOT_FOUND)
+
+
+# class ResetPasswordAPIView(generics.GenericAPIView):
+#     serializer_class = ResetPassworSerializer
+
+
+class LogoutAPIView(generics.GenericAPIView):
+    serializer_class = LogoutSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)

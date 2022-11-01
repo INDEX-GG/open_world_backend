@@ -24,8 +24,15 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-# TODO: Удаление модели при успешной регистрации пользователя
 class EmailCode(models.Model):
+    email = models.CharField('email', max_length=64, unique=True)
+    code = models.CharField('code', max_length=6)
+
+    def __str__(self):
+        return self.email
+
+
+class ResetEmailCode(models.Model):
     email = models.CharField('email', max_length=64, unique=True)
     code = models.CharField('code', max_length=6)
 

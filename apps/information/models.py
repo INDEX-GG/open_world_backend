@@ -10,7 +10,7 @@ class Video(models.Model):
     class Meta:
         verbose_name = 'Видео'
         verbose_name_plural = 'Видео'
-        ordering = ['-pk']
+        ordering = ['pk']
 
 
 class Games(models.Model):
@@ -26,7 +26,7 @@ class Games(models.Model):
 
 
 class GamesImages(models.Model):
-    games = models.ForeignKey(Games, on_delete=models.CASCADE, related_name='games')
+    images = models.ForeignKey(Games, on_delete=models.CASCADE, related_name='images')
     src = models.ImageField('image', upload_to='images/games/')
 
     class Meta:

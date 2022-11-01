@@ -15,8 +15,8 @@ class GamesImagesSerializer(serializers.ModelSerializer):
 
 
 class GamesSerializer(serializers.ModelSerializer):
-    games = GamesImagesSerializer(many=True, read_only=True)
+    images = GamesImagesSerializer(many=True, read_only=True)
 
     class Meta:
         model = Games
-        fields = ['id', 'title', 'description', 'games']
+        fields = ['id', 'title', 'description', 'images']
