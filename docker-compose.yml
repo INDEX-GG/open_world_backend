@@ -4,8 +4,6 @@ services:
     image: altay
     container_name: altay
     command: sh -c "gunicorn --bind 0.0.0.0:8000 altay_backend.wsgi"
-    volumes:
-      - static_data:static
     restart: always
     ports:
       - "5900:8000"
@@ -20,7 +18,3 @@ services:
 #      - app
 #    ports:
 #      - "1337:80"
-
-volumes:
-  media:
-  static_data:
