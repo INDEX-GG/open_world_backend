@@ -14,9 +14,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 COPY . $APP_HOME
 
-
-
-
 RUN pip install --upgrade pip
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /usr/src/app/requirements.txt
