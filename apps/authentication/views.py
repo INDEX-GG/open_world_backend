@@ -17,7 +17,7 @@ class SendCodeView(generics.CreateAPIView):
         email = request.data['email']
 
         if User.objects.filter(email=email).exists():
-            return Response({'result': False, "email": ['Пользователь с таким email уже существует.']},
+            return Response({'result': False, "email": ['Пользователь с таким email уже существует']},
                             status=status.HTTP_409_CONFLICT)
 
         if EmailCode.objects.filter(email=email).exists():
@@ -47,7 +47,7 @@ class ConfirmationCodeAPIView(generics.GenericAPIView):
         email = data.get('email')
 
         if User.objects.filter(email=email).exists():
-            return Response({'result': False, "email": ['Пользователь с таким email уже существует.']},
+            return Response({'result': False, "email": ['Пользователь с таким email уже существует']},
                             status=status.HTTP_409_CONFLICT)
         try:
             email_for_verification = EmailCode.objects.get(email=email)
@@ -79,15 +79,6 @@ class UserRegistrationView(generics.GenericAPIView):
             return Response({'result': False}, status=status.HTTP_404_NOT_FOUND)
 
 
-class LoginAPIView(generics.GenericAPIView):
-    serializer_class = LoginSerializer
-
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 class ResetSendCodeView(generics.CreateAPIView):
     serializer_class = ResetSendCodeSerializer
 
@@ -112,7 +103,7 @@ class ResetSendCodeView(generics.CreateAPIView):
                 return Response({"result": False, "email": ['Не удалось отправить код']},
                                 status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response({'result': False, "email": ['Пользователя с таким email не существует.']},
+            return Response({'result': False, "email": ['Пользователя с таким email не существует']},
                             status=status.HTTP_404_NOT_FOUND)
 
 
@@ -136,12 +127,39 @@ class ResetConfirmationCodeAPIView(generics.GenericAPIView):
             except ObjectDoesNotExist:
                 return Response({'result': False}, status=status.HTTP_404_NOT_FOUND)
         else:
-            return Response({'result': False, "email": ['Пользователя с таким email не существует.']},
+            return Response({'result': False, "email": ['Пользователя с таким email не существует']},
                             status=status.HTTP_404_NOT_FOUND)
 
 
-# class ResetPasswordAPIView(generics.GenericAPIView):
-#     serializer_class = ResetPassworSerializer
+class ResetPasswordAPIView(generics.GenericAPIView):
+    serializer_class = ResetPasswordSerializer
+
+    def put(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        code = serializer.validated_data.get('code')
+        email = serializer.validated_data.get('email')
+        user = User.objects.get(email=email)
+        try:
+            email_for_reset = ResetEmailCode.objects.get(email=email)
+            if code == email_for_reset.code:
+                user.set_password(serializer.validated_data.get('password'))
+                user.save()
+                email_for_reset.delete()
+                return Response({'result': True}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'result': False, 'email': ['Неверный код']}, status=status.HTTP_404_NOT_FOUND)
+        except ObjectDoesNotExist:
+            return Response({'result': False}, status=status.HTTP_404_NOT_FOUND)
+
+
+class LoginAPIView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class LogoutAPIView(generics.GenericAPIView):

@@ -17,7 +17,8 @@ class ChildrenItemSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     parents_children = ChildrenSerializer(many=True, read_only=True)
+    email = serializers.EmailField(max_length=64, read_only=True)
 
     class Meta:
         model = User
-        fields = ['id', 'name', 'lastname', 'patronymic', 'phone', 'parents_children']
+        fields = ['id', 'email', 'name', 'lastname', 'patronymic', 'phone', 'parents_children']

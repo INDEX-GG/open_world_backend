@@ -1,20 +1,26 @@
 version: "3.9"
 services:
-  app:
+  web:
     image: altay
     container_name: altay
-    command: sh -c "gunicorn --bind 0.0.0.0:8000 altay_backend.wsgi"
+    command: gunicorn altay_backend.wsgi:application --bind 0.0.0.0:8000
     restart: always
+    expose:
+      - 8000
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/web/static
+      - media_volume:/home/app/web/media
     ports:
-      - "5900:8000"
-#  nginx:
-#    container_name: altay_nginx
-#    restart: on-failure
-#    image: nginx:1.19.8
-#    volumes:
-#      - ./nginx/prod/nginx.conf:/etc/nginx/conf.d/default.conf
-#      - static_volume:static
-#    depends_on:
-#      - app
-#    ports:
-#      - "1337:80"
+      - 1337:80
+    depends_on:
+      - web
+
+
+volumes:
+  static_volume:
+  media_volume:
