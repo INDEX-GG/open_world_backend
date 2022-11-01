@@ -7,8 +7,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 COPY . /code/
 
-RUN mkdir code/staticfiles
-
 RUN pip install --upgrade pip
 COPY ./requirements.txt /code/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
