@@ -7,7 +7,7 @@ from apps.base.yasg import urlpatterns as doc_urls
 from apps.base.routers import router
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('altay/admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),
     path('api/v1/', include('apps.users.urls')),
     path('api/v1/', include('apps.authentication.urls')),
