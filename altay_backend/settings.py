@@ -18,7 +18,7 @@ ALLOWED_HOSTS = config.ALLOWED_HOSTS
 # Auth model
 AUTH_USER_MODEL = 'users.User'
 
-WSGI_APPLICATION = config.WSGI_APPLICATION
+WSGI_APPLICATION = 'altay_backend.wsgi.application'
 
 # Application definition
 INSTALLED_APPS = [
