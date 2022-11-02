@@ -17,4 +17,4 @@ class FeedbackAPIView(generics.GenericAPIView):
         if created:
             return Response({'result': True}, status=status.HTTP_200_OK)
         else:
-            return Response({'result': False, 'email': ['Ошибка отправления']}, status=status.HTTP_200_OK)
+            return Response({'result': False, 'email': ['Ошибка отправления']}, status=status.HTTP_404_NOT_FOUND)

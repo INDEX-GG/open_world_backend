@@ -18,6 +18,8 @@ ALLOWED_HOSTS = config.ALLOWED_HOSTS
 # Auth model
 AUTH_USER_MODEL = 'users.User'
 
+WSGI_APPLICATION = config.WSGI_APPLICATION
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -30,10 +32,10 @@ INSTALLED_APPS = [
 
     'drf_yasg',
     'rest_framework',
+    'corsheaders',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    # 'corsheaders',
 
     'apps.authentication.apps.AuthConfig',
     'apps.users.apps.UsersConfig',
@@ -42,10 +44,12 @@ INSTALLED_APPS = [
     'apps.information.apps.InformationConfig',
 ]
 
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -72,8 +76,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'altay_backend.wsgi.application'
-
 # Database
 DATABASES = {
     'default': {
@@ -86,28 +88,20 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    # },
-    # {
-    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    # },
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
 # Internationalization
@@ -195,8 +189,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=365),
 }
 
-
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1",
-    "http://127.0.0.1:8000"
-]
+CORS_ALLOWED_ORIGINS = []
+CORS_ALLOW_ALL_ORIGINS = True

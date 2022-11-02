@@ -3,24 +3,13 @@ services:
   web:
     image: altay
     container_name: altay
-    command: gunicorn altay_backend.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     restart: always
     ports:
       - "5900:8000"
     volumes:
       - static_volume:/home/app/web/static
       - media_volume:/home/app/web/media
-  nginx:
-    build: ./nginx
-    volumes:
-      - static_volume:/home/app/web/static
-      - media_volume:/home/app/web/media
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - web
-
 
 volumes:
   static_volume:
