@@ -27,8 +27,12 @@ class Games(models.Model):
 
 class GamesImages(models.Model):
     images = models.ForeignKey(Games, on_delete=models.CASCADE, related_name='images')
-    src = models.ImageField('image', upload_to='images/games/')
+    image = models.ImageField('image', upload_to='images/games/')
 
     class Meta:
         verbose_name = 'Картинки для игр'
         verbose_name_plural = 'Картинки для игр'
+
+    def src(self):
+        url = self.image.url
+        return url

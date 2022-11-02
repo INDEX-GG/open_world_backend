@@ -8,7 +8,7 @@ from .models import News, Images
 
 class NewsViewSetPagination(PageNumberPagination):
     page_size = 50
-    page_size_query_param = _query_param = 'page_limit'
+    page_size_query_param = 'page_limit'
     max_page_size = 1000
 
 

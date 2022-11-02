@@ -16,8 +16,12 @@ class News(models.Model):
 
 class Images(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='images')
-    src = models.ImageField('image', upload_to='images/news/')
+    image = models.ImageField('image', upload_to='images/news/')
 
     class Meta:
         verbose_name = 'Картинки'
         verbose_name_plural = 'Картинки'
+
+    def src(self):
+        url = self.image.url
+        return url

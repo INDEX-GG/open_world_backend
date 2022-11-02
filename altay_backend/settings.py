@@ -135,8 +135,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-SITE_ID = 1
-
 # EMAIL
 if config.EMAIL_TEST:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -192,6 +190,4 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = []
 CORS_ALLOW_ALL_ORIGINS = True
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://testguru.ru',
-]
+CSRF_TRUSTED_ORIGINS = ['https://testguru.ru',]

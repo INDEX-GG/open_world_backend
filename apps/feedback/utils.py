@@ -69,4 +69,5 @@ class Util:
                   f'Спасибо за обращение!'
         from_email = EMAIL_HOST_USER
         recipient_list = ['go_2002@mail.ru', ]
-        send_mail(subject, message, from_email, recipient_list)
+        result = send_mail(subject, message, from_email, recipient_list)
+        return result

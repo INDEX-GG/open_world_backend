@@ -5,7 +5,7 @@ from .models import News, Images
 class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Images
-        fields = '__all__'
+        fields = ['id', 'news', 'src']
 
 
 class NewsSerializer(serializers.ModelSerializer):

@@ -11,7 +11,7 @@ class VideoSerializer(serializers.ModelSerializer):
 class GamesImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = GamesImages
-        fields = '__all__'
+        fields = ['id', 'images', 'src']
 
 
 class GamesSerializer(serializers.ModelSerializer):
