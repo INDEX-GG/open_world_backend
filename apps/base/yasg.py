@@ -9,7 +9,7 @@ schema_view = get_schema_view(
         description="Docs for api Altay Backend",
     ),
     public=True,
-    url='https://testguru.ru/'
+    url='https://testguru.ru/altay/'
 )
 
 urlpatterns = [
