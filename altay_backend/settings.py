@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'apps.information.apps.InformationConfig',
 ]
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -190,7 +189,7 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = []
 CORS_ALLOW_ALL_ORIGINS = True
 
-CSRF_TRUSTED_ORIGINS = ['https://testguru.ru', ]
+CSRF_TRUSTED_ORIGINS = config.CSRF_TRUSTED_ORIGINS
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
@@ -202,4 +201,4 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_SECONDS = 3600
 
-# FORCE_SCRIPT_NAME = '/altay/'
+FORCE_SCRIPT_NAME = config.FORCE_SCRIPT_NAME
