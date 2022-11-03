@@ -61,7 +61,6 @@ class Util:
             email = 'Не указано'
 
         subject = 'Обратная связь'
-
         message = f'Способ связи: {communication}\n' \
                   f'Наименование муниципального образования: {municipality}\n' \
                   f'Статус семьи: {family_status}\n' \

@@ -27,7 +27,7 @@ class GamesPagination(PageNumberPagination):
 
 
 class GamesViewSet(viewsets.ModelViewSet):
-    queryset = Games.objects.all()
+    queryset = Games.objects.all().order_by('-pk')
     serializer_class = GamesSerializer
     permission_classes = (IsAdminOrReadOnly,)
     pagination_class = GamesPagination

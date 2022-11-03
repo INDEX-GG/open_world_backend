@@ -13,7 +13,7 @@ class NewsViewSetPagination(PageNumberPagination):
 
 
 class NewsViewSet(viewsets.ModelViewSet):
-    queryset = News.objects.all()
+    queryset = News.objects.all().order_by('-pk')
     serializer_class = NewsSerializer
     permission_classes = (IsAdminOrReadOnly,)
     pagination_class = NewsViewSetPagination

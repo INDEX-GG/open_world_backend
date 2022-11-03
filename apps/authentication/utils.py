@@ -11,20 +11,20 @@ class Util:
 
     @staticmethod
     def send_verification_mail(email, code):
-        subject = 'Altay verification code'
-        message = f'Your verification code:\n' \
+        subject = 'Код для регистрации'
+        message = f'Ваш код для регистрации:\n' \
                   f'{code}\n' \
-                  f'Thanks for using Altay.'
+                  f'Спасибо за использование нашего сервиса!'
         from_email = EMAIL_HOST_USER
         recipient_list = [email, ]
         send_mail(subject, message, from_email, recipient_list)
 
     @staticmethod
     def send_reset_password_mail(email, code):
-        subject = 'Altay reset password code'
-        message = f'Your reset password code:\n' \
+        subject = 'Код для восстановления пароля'
+        message = f'Ваш код для восстановления пароля:\n' \
                   f'{code}\n' \
-                  f'Thanks for using Altay.'
+                  f'Спасибо за использование нашего сервиса!'
         from_email = EMAIL_HOST_USER
         recipient_list = [email, ]
         send_mail(subject, message, from_email, recipient_list)
