@@ -10,6 +10,11 @@ class Util:
         else:
             municipality = 'Не указано'
 
+        if data['communication'] != '':
+            communication = data['communication']
+        else:
+            communication = 'Не указано'
+
         if data['family_status'] != '':
             family_status = data['family_status']
         else:
@@ -56,7 +61,9 @@ class Util:
             email = 'Не указано'
 
         subject = 'Обратная связь'
-        message = f'Наименование муниципального образования: {municipality}\n' \
+
+        message = f'Способ связи: {communication}\n' \
+                  f'Наименование муниципального образования: {municipality}\n' \
                   f'Статус семьи: {family_status}\n' \
                   f'Возраст ребёнка: {child_age}\n' \
                   f'Наличие в семье ребенка-инвалида: {disabled_person}\n' \

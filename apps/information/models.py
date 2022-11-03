@@ -14,8 +14,8 @@ class Video(models.Model):
 
 
 class Games(models.Model):
-    title = models.CharField('title', max_length=255)
-    description = models.TextField('description')
+    title = models.CharField('Заголовок', max_length=255)
+    description = models.TextField('Описание')
 
     def __str__(self):
         return self.title
@@ -27,7 +27,7 @@ class Games(models.Model):
 
 class GamesImages(models.Model):
     images = models.ForeignKey(Games, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField('image', upload_to='images/games/')
+    image = models.ImageField('Картинка', upload_to='images/games/')
 
     class Meta:
         verbose_name = 'Картинки для игр'

@@ -56,3 +56,4 @@ class Children(models.Model):
     class Meta:
         verbose_name = 'Ребенок'
         verbose_name_plural = 'Дети'
+        ordering = ['pk']

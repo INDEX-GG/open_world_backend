@@ -8,4 +8,4 @@ class FeedbackSerializer(serializers.ModelSerializer):
         model = Feedback
         fields = ['municipality', 'family_status', 'child_age',
                   'disabled_person', 'limited_person', 'specialist',
-                  'counseling_theme', 'other', 'phone', 'email']
+                  'counseling_theme', 'other', 'phone', 'email', 'communication']

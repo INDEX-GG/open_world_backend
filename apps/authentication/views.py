@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
 from .serializers import *
@@ -85,16 +86,13 @@ class ResetSendCodeView(generics.CreateAPIView):
     def create(self, request):
         email_serializer = ResetSendCodeSerializer(data=request.data)
         email_serializer.is_valid(raise_exception=True)
-
         email = request.data['email']
 
         if User.objects.filter(email=email).exists():
             if ResetEmailCode.objects.filter(email=email).exists():
                 ResetEmailCode.objects.filter(email=email).delete()
-
             code = Util.generate_code()
             created = ResetEmailCode.objects.create(email=email, code=code)
-
             if created:
                 email = request.data['email']
                 Util.send_reset_password_mail(email, code)
@@ -170,5 +168,4 @@ class LogoutAPIView(generics.GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
         return Response(status=status.HTTP_204_NO_CONTENT)
