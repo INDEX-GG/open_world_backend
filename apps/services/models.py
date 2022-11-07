@@ -2,7 +2,7 @@ from django.db import models
 
 
 class ServicesOffline(models.Model):
-    services_name = models.CharField(max_length=255, blank=True, null=True)
+    services_name = models.CharField(max_length=1000, blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     lastname = models.CharField(max_length=255, blank=True, null=True)
     patronymic = models.CharField(max_length=255, blank=True, null=True)
