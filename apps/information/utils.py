@@ -1,12 +1,49 @@
-# from googleapiclient.discovery import build
-# from google_auth_oauthlib.flow import InstalledAppFlow
-# from google.auth.transport.requests import Request
-#
-# import urllib.parse as p
-# import re
-# import os
-# import pickle
-#
-# SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
-#
-# class Util:
+import json
+
+# API client library
+import googleapiclient.discovery
+import googleapiclient.errors
+
+from urllib.parse import urlparse, parse_qs
+
+
+# API information
+api_service_name = "youtube"
+api_version = "v3"
+DEVELOPER_KEY = 'AIzaSyDwaOGOtXS5hDA4C787eCIJJb9bPr9eDU4'
+# API client
+youtube = googleapiclient.discovery.build(
+    api_service_name, api_version, developerKey=DEVELOPER_KEY)
+
+
+class Util:
+    @staticmethod
+    def get_yt_video_id(url):
+        if url.startswith(('youtu', 'www')):
+            url = 'http://' + url
+
+        query = urlparse(url)
+
+        if 'youtube' in query.hostname:
+            if query.path == '/watch':
+                return parse_qs(query.query)['v'][0]
+            elif query.path.startswith(('/embed/', '/v/')):
+                return query.path.split('/')[2]
+        elif 'youtu.be' in query.hostname:
+            return query.path[1:]
+        else:
+            raise ValueError
+
+    @staticmethod
+    def get_description(url):
+        video_id = Util.get_yt_video_id(url)
+
+        request = youtube.videos().list(
+            part="snippet",
+            id=video_id,
+            fields="items(snippet(description))"
+        )
+
+        response = request.execute()
+        data = response
+        return data['items'][0]['snippet']['description']

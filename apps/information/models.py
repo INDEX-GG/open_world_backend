@@ -1,12 +1,19 @@
 from django.db import models
 
+from .utils import Util
+
 
 class Video(models.Model):
     url = models.CharField('Ссылка на видео', max_length=255)
-    description = models.TextField('Описание видео')
+    description = models.TextField('Описание видео', blank=True, null=True)
 
     def __str__(self):
         return self.url
+
+    def save(self, *args, **kwargs):
+        if self.description == '':
+            self.description = Util.get_description(str(self.url))
+        super(Video, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Видео'

@@ -1,5 +1,5 @@
 from django.core.mail import send_mail
-from altay_backend.config import EMAIL_HOST_USER
+from altay_backend.config import EMAIL_HOST_USER, EMAIL_RECIPIENT
 
 
 class Util:
@@ -22,7 +22,7 @@ class Util:
                   f'Вопрос: {question}\n' \
                   f'Способ связи: {communication}\n'
         from_email = EMAIL_HOST_USER
-        recipient_list = ['go_2002@mail.ru', ]
+        recipient_list = [EMAIL_RECIPIENT, ]
         result = send_mail(subject, message, from_email, recipient_list)
         return result
 
@@ -40,6 +40,6 @@ class Util:
                   f'Адрес электронной почты: {email}\n' \
                   f'Вопрос: {question}\n'
         from_email = EMAIL_HOST_USER
-        recipient_list = ['go_2002@mail.ru', ]
+        recipient_list = [EMAIL_RECIPIENT, ]
         result = send_mail(subject, message, from_email, recipient_list)
         return result

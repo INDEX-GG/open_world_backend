@@ -13,9 +13,6 @@ class VideoPagination(PageNumberPagination):
     max_page_size = 1000
 
 
-# AIzaSyDwaOGOtXS5hDA4C787eCIJJb9bPr9eDU4
-
-
 class VideoViewSet(generics.ListAPIView):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
