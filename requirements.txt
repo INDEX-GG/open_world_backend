@@ -36,3 +36,4 @@ types-cryptography==3.3.23.1
 tzdata==2022.5
 uritemplate==4.1.1
 urllib3==1.26.12
+whitenoise==6.2.0
