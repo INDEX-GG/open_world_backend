@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/v1/', include('apps.authentication.urls')),
     path('api/v1/', include('apps.feedback.urls')),
     path('api/v1/', include('apps.information.urls')),
+    path('api/v1/', include('apps.services.urls')),
 ]
 
 urlpatterns += doc_urls

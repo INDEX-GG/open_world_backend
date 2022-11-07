@@ -13,6 +13,3 @@ class Feedback(models.Model):
     phone = models.CharField(max_length=64, blank=True, null=True)
     email = models.CharField(max_length=64, blank=True, null=True)
     communication = models.CharField(max_length=64, blank=True, null=True)
-
-    def __str__(self):
-        return self.municipality

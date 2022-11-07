@@ -3,6 +3,7 @@ from django.db import models
 
 class Video(models.Model):
     url = models.CharField('Ссылка на видео', max_length=255)
+    description = models.TextField('Описание видео')
 
     def __str__(self):
         return self.url

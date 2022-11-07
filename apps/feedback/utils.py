@@ -71,8 +71,7 @@ class Util:
                   f'Тема консультирования: {counseling_theme}\n' \
                   f'Другое: {other}\n' \
                   f'Номер телефона: {phone}\n' \
-                  f'Адрес электронной почты: {email}\n' \
-                  f'Спасибо за обращение!'
+                  f'Адрес электронной почты: {email}\n'
         from_email = EMAIL_HOST_USER
         recipient_list = ['go_2002@mail.ru', ]
         result = send_mail(subject, message, from_email, recipient_list)

@@ -145,9 +145,9 @@ class ResetPasswordAPIView(generics.GenericAPIView):
                 user.set_password(serializer.validated_data.get('password'))
                 user.save()
                 # TODO: Check it
-                # all_tokens = OutstandingToken.objects.filter(user_id=user.id)
-                # for token in all_tokens:
-                #     RefreshToken(token.token).blacklist()
+                all_tokens = OutstandingToken.objects.filter(user_id=user.id)
+                for token in all_tokens:
+                    RefreshToken(token.token).blacklist()
 
                 email_for_reset.delete()
                 return Response({'result': True}, status=status.HTTP_201_CREATED)

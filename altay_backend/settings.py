@@ -41,11 +41,14 @@ INSTALLED_APPS = [
     'apps.news.apps.NewsConfig',
     'apps.feedback.apps.FeedbackConfig',
     'apps.information.apps.InformationConfig',
+    'apps.services.apps.ServicesConfig',
+
 ]
 
 #
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,8 +56,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'altay_backend.urls'
@@ -193,3 +194,5 @@ CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = config.CSRF_TRUSTED_ORIGINS
 
 FORCE_SCRIPT_NAME = config.FORCE_SCRIPT_NAME
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
