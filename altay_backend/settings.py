@@ -42,10 +42,8 @@ INSTALLED_APPS = [
     'apps.feedback.apps.FeedbackConfig',
     'apps.information.apps.InformationConfig',
     'apps.services.apps.ServicesConfig',
-
 ]
 
-#
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',

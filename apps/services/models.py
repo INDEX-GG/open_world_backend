@@ -10,3 +10,8 @@ class ServicesOffline(models.Model):
     phone = models.CharField(max_length=255, blank=True, null=True)
     question = models.TextField(blank=True, null=True)
     communication = models.CharField(max_length=255, blank=True, null=True)
+
+
+class Docs(models.Model):
+    doc = models.FileField(blank=True, null=True, upload_to='docs/')
+e
