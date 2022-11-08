@@ -14,4 +14,3 @@ class ServicesOffline(models.Model):
 
 class Docs(models.Model):
     doc = models.FileField(blank=True, null=True, upload_to='docs/')
-e
