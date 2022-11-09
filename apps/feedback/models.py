@@ -13,3 +13,16 @@ class Feedback(models.Model):
     phone = models.CharField(max_length=255, blank=True, null=True)
     email = models.CharField(max_length=255, blank=True, null=True)
     communication = models.CharField(max_length=255, blank=True, null=True)
+
+
+class Questions(models.Model):
+    title = models.CharField('Заголовок', max_length=255)
+    description = models.TextField('Описание')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Часто задаваемые вопросы'
+        verbose_name_plural = 'Часто задаваемые вопросы'
+        ordering = ['-pk']

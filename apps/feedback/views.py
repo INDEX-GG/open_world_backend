@@ -2,8 +2,10 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import FeedbackSerializer
+from .serializers import FeedbackSerializer, QuestionsSerializer
 from .utils import Util
+from .models import Questions
+from apps.base.permissions import IsAdminOrReadOnly
 
 
 class FeedbackAPIView(generics.GenericAPIView):
@@ -18,3 +20,15 @@ class FeedbackAPIView(generics.GenericAPIView):
             return Response({'result': True}, status=status.HTTP_200_OK)
         else:
             return Response({'result': False, 'email': ['Ошибка отправления']}, status=status.HTTP_404_NOT_FOUND)
+
+
+class QuestionsViewSet(generics.ListAPIView):
+    queryset = Questions.objects.all().order_by('-pk')
+    serializer_class = QuestionsSerializer
+    permission_classes = (IsAdminOrReadOnly,)
+
+
+class QuestionsItemViewSet(generics.RetrieveAPIView):
+    queryset = Questions.objects.all()
+    serializer_class = QuestionsSerializer
+    permission_classes = (IsAdminOrReadOnly,)

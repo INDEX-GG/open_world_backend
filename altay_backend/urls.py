@@ -4,16 +4,15 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from apps.base.yasg import urlpatterns as doc_urls
-from apps.base.routers import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)),
     path('api/v1/', include('apps.users.urls')),
     path('api/v1/', include('apps.authentication.urls')),
     path('api/v1/', include('apps.feedback.urls')),
     path('api/v1/', include('apps.information.urls')),
     path('api/v1/', include('apps.services.urls')),
+    path('api/v1/', include('apps.news.urls')),
 ]
 
 urlpatterns += doc_urls

@@ -35,11 +35,17 @@ class GamesPagination(PageNumberPagination):
     max_page_size = 1000
 
 
-class GamesViewSet(viewsets.ModelViewSet):
+class GamesViewSet(generics.ListAPIView):
     queryset = Games.objects.all().order_by('-pk')
     serializer_class = GamesSerializer
     permission_classes = (IsAdminOrReadOnly,)
     pagination_class = GamesPagination
+
+
+class GamesItemViewSet(generics.RetrieveAPIView):
+    queryset = Games.objects.all()
+    serializer_class = GamesSerializer
+    permission_classes = (IsAdminOrReadOnly,)
 
 
 class ContactsViewSet(generics.ListAPIView):

@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 
 from apps.base.permissions import IsAdminOrReadOnly
@@ -12,8 +12,14 @@ class NewsViewSetPagination(PageNumberPagination):
     max_page_size = 1000
 
 
-class NewsViewSet(viewsets.ModelViewSet):
+class NewsViewSet(generics.ListAPIView):
     queryset = News.objects.all().order_by('-pk')
     serializer_class = NewsSerializer
     permission_classes = (IsAdminOrReadOnly,)
     pagination_class = NewsViewSetPagination
+
+
+class NewsItemViewSet(generics.RetrieveAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+    permission_classes = (IsAdminOrReadOnly,)
