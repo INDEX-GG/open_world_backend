@@ -1,8 +1,10 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 
-from .serializers import ServicesOfflineSerializer, ServicesVideoSerializer
+from .serializers import ServicesOfflineSerializer, ServicesVideoSerializer, ServicesSerializer
+from .models import Services
 from .utils import Util
+from ..base.permissions import IsAdminOrReadOnly
 
 
 class ServicesOfflineAPIView(generics.GenericAPIView):
@@ -31,3 +33,9 @@ class ServicesVideoAPIView(generics.GenericAPIView):
             return Response({'result': True}, status=status.HTTP_200_OK)
         else:
             return Response({'result': False, 'email': ['Ошибка отправления']}, status=status.HTTP_404_NOT_FOUND)
+
+
+class ServicesListAPIView(generics.RetrieveAPIView):
+    queryset = Services.objects.all()
+    serializer_class = ServicesSerializer
+    permission_classes = (IsAdminOrReadOnly,)

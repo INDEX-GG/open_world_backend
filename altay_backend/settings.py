@@ -18,8 +18,6 @@ ALLOWED_HOSTS = config.ALLOWED_HOSTS
 # Auth model
 AUTH_USER_MODEL = 'users.User'
 
-WSGI_APPLICATION = 'altay_backend.wsgi.application'
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,6 +33,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'import_export',
+    'socketio',
 
     'apps.authentication.apps.AuthConfig',
     'apps.users.apps.UsersConfig',
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.feedback.apps.FeedbackConfig',
     'apps.information.apps.InformationConfig',
     'apps.services.apps.ServicesConfig',
+    'apps.chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,17 @@ TEMPLATES = [
     },
 ]
 
+WSGI_APPLICATION = 'altay_backend.wsgi.application'
+ASGI_APPLICATION = 'altay_backend.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('0.0.0.0', 6379)]
+        }
+    }
+}
 # Database
 DATABASES = {
     'default': {
@@ -194,3 +206,7 @@ CSRF_TRUSTED_ORIGINS = config.CSRF_TRUSTED_ORIGINS
 FORCE_SCRIPT_NAME = config.FORCE_SCRIPT_NAME
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True

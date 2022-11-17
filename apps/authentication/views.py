@@ -1,14 +1,14 @@
-from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
+from django.core.exceptions import ObjectDoesNotExist
 
 from .serializers import *
 from .utils import Util
 
 
-class SendCodeView(generics.CreateAPIView):
+class SendCodeAPIView(generics.CreateAPIView):
     queryset = EmailCode.objects.all()
     serializer_class = SendCodeSerializer
 
@@ -61,7 +61,7 @@ class ConfirmationCodeAPIView(generics.GenericAPIView):
             return Response({'result': False}, status=status.HTTP_404_NOT_FOUND)
 
 
-class UserRegistrationView(generics.GenericAPIView):
+class UserRegistrationAPIView(generics.GenericAPIView):
     serializer_class = UserRegistrationSerializer
 
     def post(self, request):
@@ -81,7 +81,7 @@ class UserRegistrationView(generics.GenericAPIView):
             return Response({'result': False}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ResetSendCodeView(generics.CreateAPIView):
+class ResetSendCodeAPIView(generics.CreateAPIView):
     serializer_class = ResetSendCodeSerializer
 
     def create(self, request):

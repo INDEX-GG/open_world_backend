@@ -10,7 +10,7 @@ from ..authentication.models import UserManager
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = None
-    email = models.EmailField('email address', unique=True, max_length=255)
+    email = models.EmailField('email', unique=True, max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

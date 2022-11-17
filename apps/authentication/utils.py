@@ -14,7 +14,10 @@ class Util:
         subject = 'Код для регистрации'
         message = f'Ваш код для регистрации:\n' \
                   f'{code}\n' \
-                  f'Спасибо за использование нашего сервиса!'
+                  f'Спасибо за использование нашего сервиса!\n\n' \
+                  f'БУ РА «РРЦ»\n' \
+                  f'Адрес: Республика Алтай г. Горно-Алтайск пр. Коммунистический, 109\n' \
+                  f'Телефон: 8(38822)6-23-01'
         from_email = EMAIL_HOST_USER
         recipient_list = [email, ]
         send_mail(subject, message, from_email, recipient_list)
@@ -24,8 +27,10 @@ class Util:
         subject = 'Код для восстановления пароля'
         message = f'Ваш код для восстановления пароля:\n' \
                   f'{code}\n' \
-                  f'Спасибо за использование нашего сервиса!'
+                  f'Спасибо за использование нашего сервиса!\n\n' \
+                  f'БУ РА «РРЦ»\n' \
+                  f'Адрес: Республика Алтай г. Горно-Алтайск пр. Коммунистический, 109\n' \
+                  f'Телефон: 8(38822)6-23-01'
         from_email = EMAIL_HOST_USER
         recipient_list = [email, ]
         send_mail(subject, message, from_email, recipient_list)
-

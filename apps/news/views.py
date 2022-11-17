@@ -12,14 +12,14 @@ class NewsViewSetPagination(PageNumberPagination):
     max_page_size = 1000
 
 
-class NewsViewSet(generics.ListAPIView):
+class NewsAPIView(generics.ListAPIView):
     queryset = News.objects.all().order_by('-pk')
     serializer_class = NewsSerializer
     permission_classes = (IsAdminOrReadOnly,)
     pagination_class = NewsViewSetPagination
 
 
-class NewsItemViewSet(generics.RetrieveAPIView):
+class NewsItemAPIView(generics.RetrieveAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
     permission_classes = (IsAdminOrReadOnly,)

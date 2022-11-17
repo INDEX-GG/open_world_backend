@@ -5,4 +5,5 @@ from apps.services import views
 urlpatterns = [
     path('services/offline/', views.ServicesOfflineAPIView.as_view()),
     path('services/video/', views.ServicesVideoAPIView.as_view()),
+    path('services/<int:pk>/', views.ServicesListAPIView.as_view()),
 ]

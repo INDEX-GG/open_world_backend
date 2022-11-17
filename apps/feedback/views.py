@@ -22,13 +22,13 @@ class FeedbackAPIView(generics.GenericAPIView):
             return Response({'result': False, 'email': ['Ошибка отправления']}, status=status.HTTP_404_NOT_FOUND)
 
 
-class QuestionsViewSet(generics.ListAPIView):
+class QuestionsAPIView(generics.ListAPIView):
     queryset = Questions.objects.all().order_by('-pk')
     serializer_class = QuestionsSerializer
     permission_classes = (IsAdminOrReadOnly,)
 
 
-class QuestionsItemViewSet(generics.RetrieveAPIView):
+class QuestionsItemAPIView(generics.RetrieveAPIView):
     queryset = Questions.objects.all()
     serializer_class = QuestionsSerializer
     permission_classes = (IsAdminOrReadOnly,)

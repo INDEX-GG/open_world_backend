@@ -5,7 +5,7 @@ from ..base.permissions import IsOwnerProfile
 from .serializers import *
 
 
-class UserDetailsView(generics.RetrieveUpdateAPIView):
+class UserDetailsAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = (IsOwnerProfile,)
 
@@ -16,13 +16,13 @@ class UserDetailsView(generics.RetrieveUpdateAPIView):
         return get_user_model().objects.none()
 
 
-class ChildrenViewSet(generics.CreateAPIView):
+class ChildrenAPIView(generics.CreateAPIView):
     queryset = Children.objects.all()
     serializer_class = ChildrenSerializer
     permission_classes = (IsOwnerProfile,)
 
 
-class ChildrenItemViewSet(generics.RetrieveUpdateDestroyAPIView):
+class ChildrenItemAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Children.objects.all()
     serializer_class = ChildrenItemSerializer
     permission_classes = (IsOwnerProfile,)
