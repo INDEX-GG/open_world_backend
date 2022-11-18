@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'import_export',
-    'socketio',
 
     'apps.authentication.apps.AuthConfig',
     'apps.users.apps.UsersConfig',
@@ -42,7 +41,6 @@ INSTALLED_APPS = [
     'apps.feedback.apps.FeedbackConfig',
     'apps.information.apps.InformationConfig',
     'apps.services.apps.ServicesConfig',
-    'apps.chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [
