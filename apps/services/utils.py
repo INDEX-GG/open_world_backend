@@ -1,5 +1,5 @@
 from django.core.mail import send_mail
-from altay_backend.config import EMAIL_HOST_USER, EMAIL_RECIPIENT
+from config.config import EMAIL_HOST_USER, EMAIL_RECIPIENT
 
 
 class Util:

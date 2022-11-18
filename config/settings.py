@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'altay_backend.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -74,17 +74,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'altay_backend.wsgi.application'
-ASGI_APPLICATION = 'altay_backend.asgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('0.0.0.0', 6379)]
-        }
-    }
-}
 # Database
 DATABASES = {
     'default': {

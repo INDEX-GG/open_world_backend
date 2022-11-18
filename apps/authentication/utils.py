@@ -1,6 +1,6 @@
 import random
 from django.core.mail import send_mail
-from altay_backend.config import EMAIL_HOST_USER
+from config.config import EMAIL_HOST_USER
 
 
 class Util:
