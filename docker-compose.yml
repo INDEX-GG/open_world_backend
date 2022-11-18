@@ -3,7 +3,7 @@ services:
   web:
     image: altay
     container_name: altay
-    command: sh -c "gunicorn --bind 0.0.0.0:8000 altay_backend.wsgi"
+    command: sh -c "gunicorn --bind 0.0.0.0:8000 config.wsgi"
     restart: always
     ports:
       - "5900:8000"
