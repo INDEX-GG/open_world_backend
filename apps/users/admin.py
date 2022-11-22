@@ -36,4 +36,3 @@ admin.site.register(User, User1Admin)
 admin.site.unregister(Group)
 admin.site.unregister(OutstandingToken)
 admin.site.unregister(BlacklistedToken)
-

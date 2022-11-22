@@ -25,16 +25,12 @@ class UserManager(BaseUserManager):
 
 
 class EmailCode(models.Model):
+    # Code storage for registration
     email = models.CharField('email', max_length=64, unique=True)
     code = models.CharField('code', max_length=6)
-
-    def __str__(self):
-        return self.email
 
 
 class ResetEmailCode(models.Model):
+    # Password recovery code vault
     email = models.CharField('email', max_length=64, unique=True)
     code = models.CharField('code', max_length=6)
-
-    def __str__(self):
-        return self.email

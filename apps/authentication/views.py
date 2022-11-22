@@ -9,6 +9,7 @@ from .utils import Util
 
 
 class SendCodeAPIView(generics.CreateAPIView):
+    # Sends a code to the email for registration
     queryset = EmailCode.objects.all()
     serializer_class = SendCodeSerializer
 
@@ -39,6 +40,7 @@ class SendCodeAPIView(generics.CreateAPIView):
 
 
 class ConfirmationCodeAPIView(generics.GenericAPIView):
+    # Checking the code sent to the email
     serializer_class = ConfirmationCodeSerializer
 
     def post(self, request):
@@ -62,6 +64,7 @@ class ConfirmationCodeAPIView(generics.GenericAPIView):
 
 
 class UserRegistrationAPIView(generics.GenericAPIView):
+    # User registration
     serializer_class = UserRegistrationSerializer
 
     def post(self, request):
@@ -82,6 +85,7 @@ class UserRegistrationAPIView(generics.GenericAPIView):
 
 
 class ResetSendCodeAPIView(generics.CreateAPIView):
+    # Sending a code to the email to reset password
     serializer_class = ResetSendCodeSerializer
 
     def create(self, request):
@@ -107,6 +111,7 @@ class ResetSendCodeAPIView(generics.CreateAPIView):
 
 
 class ResetConfirmationCodeAPIView(generics.GenericAPIView):
+    # Password recovery code confirmation
     serializer_class = ResetConfirmationCodeSerializer
 
     def post(self, request):
@@ -131,6 +136,7 @@ class ResetConfirmationCodeAPIView(generics.GenericAPIView):
 
 
 class ResetPasswordAPIView(generics.GenericAPIView):
+    # User password recovery
     serializer_class = ResetPasswordSerializer
 
     def put(self, request):
@@ -158,6 +164,7 @@ class ResetPasswordAPIView(generics.GenericAPIView):
 
 
 class LoginAPIView(generics.GenericAPIView):
+    # User account login
     serializer_class = LoginSerializer
 
     def post(self, request):
@@ -167,6 +174,7 @@ class LoginAPIView(generics.GenericAPIView):
 
 
 class LogoutAPIView(generics.GenericAPIView):
+    # User account logout
     serializer_class = LogoutSerializer
     permission_classes = (IsAuthenticated,)
 

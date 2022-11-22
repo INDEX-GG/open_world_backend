@@ -6,11 +6,13 @@ from config.config import EMAIL_HOST_USER
 class Util:
     @staticmethod
     def generate_code():
+        # Generates a random code
         code = random.randint(100000, 999999)
         return code
 
     @staticmethod
     def send_verification_mail(email, code):
+        # Sends the generated random code to the email for registration
         subject = 'Код для регистрации'
         message = f'Ваш код для регистрации:\n' \
                   f'{code}\n' \
@@ -24,6 +26,7 @@ class Util:
 
     @staticmethod
     def send_reset_password_mail(email, code):
+        # Sends the generated random code to the email for reset password
         subject = 'Код для восстановления пароля'
         message = f'Ваш код для восстановления пароля:\n' \
                   f'{code}\n' \

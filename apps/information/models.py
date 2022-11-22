@@ -16,8 +16,8 @@ class Video(models.Model):
         super(Video, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = 'Полезная информация/Видеоуроки'
-        verbose_name_plural = 'Полезная информация/Видеоуроки'
+        verbose_name = 'Видеоуроки'
+        verbose_name_plural = 'Видеоуроки'
         ordering = ['pk']
 
 
@@ -29,8 +29,8 @@ class Games(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Полезная информация/Игры для развития'
-        verbose_name_plural = 'Полезная информация/Игры для развития'
+        verbose_name = 'Игры для развития'
+        verbose_name_plural = 'Игры для развития'
 
 
 class GamesImages(models.Model):
@@ -97,8 +97,8 @@ class Recommendations(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'Полезная информация/Рекомендации'
-        verbose_name_plural = 'Полезная информация/Рекомендации'
+        verbose_name = 'Рекомендации'
+        verbose_name_plural = 'Рекомендации'
 
 
 class RecommendationsDocs(models.Model):
