@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -153,8 +155,8 @@ class ResetPasswordAPIView(generics.GenericAPIView):
 
                 # TODO: Check it
                 for token in OutstandingToken.objects.filter(user_id=user.id):
-                    _, _ = BlacklistedToken.objects.get_or_create(token=token)
-
+                    if token.expires_at > timezone.now():
+                        _, _ = BlacklistedToken.objects.get_or_create(token=token)
                 email_for_reset.delete()
                 return Response({'result': True}, status=status.HTTP_201_CREATED)
             else:

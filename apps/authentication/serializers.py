@@ -2,6 +2,7 @@ from rest_framework import serializers, status
 from django.contrib import auth
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from rest_framework import exceptions
 
 from .models import EmailCode, ResetEmailCode
 from ..users.models import User
@@ -118,5 +119,5 @@ class LogoutSerializer(serializers.Serializer):
     def save(self, **kwargs):
         try:
             RefreshToken(self.token).blacklist()
-        except TokenError:
-            self.fail('Bad token')
+        except TokenError as ex:
+            raise exceptions.AuthenticationFailed(ex)

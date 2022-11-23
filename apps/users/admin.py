@@ -30,5 +30,5 @@ class ChildrenAdmin(ImportExportModelAdmin):
 admin.site.register(User, UserAdmin)
 admin.site.register(Children, ChildrenAdmin)
 admin.site.unregister(Group)
-admin.site.unregister(OutstandingToken)
-admin.site.unregister(BlacklistedToken)
+# admin.site.unregister(OutstandingToken)
+# admin.site.unregister(BlacklistedToken)
