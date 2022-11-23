@@ -1,13 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 
-from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from import_export.fields import Field
 
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 
 from .models import User, Children
+from .resources import UserResource, ChildrenResource
 
 
 class ChildrenInline(admin.TabularInline):
@@ -15,16 +14,7 @@ class ChildrenInline(admin.TabularInline):
     extra = 0
 
 
-class UserResource(resources.ModelResource):
-    name = Field(attribute='name', column_name='Имя')
-
-    class Meta:
-        model = User
-        fields = ('email', 'name', 'lastname', 'patronymic', 'phone')
-
-
-class User1Admin(ImportExportModelAdmin):
-    save_on_top = True
+class UserAdmin(ImportExportModelAdmin):
     list_display = ['email']
     inlines = [ChildrenInline, ]
     resource_class = UserResource
@@ -32,7 +22,13 @@ class User1Admin(ImportExportModelAdmin):
     exclude = ('code', 'password')
 
 
-admin.site.register(User, User1Admin)
+class ChildrenAdmin(ImportExportModelAdmin):
+    list_display = ['name']
+    resource_class = ChildrenResource
+
+
+admin.site.register(User, UserAdmin)
+admin.site.register(Children, ChildrenAdmin)
 admin.site.unregister(Group)
 admin.site.unregister(OutstandingToken)
 admin.site.unregister(BlacklistedToken)

@@ -36,6 +36,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             "access": str(refresh.access_token)
         })
 
+    def count_children(self):
+        return Children.objects.filter(user=self.id).count()
+
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
@@ -50,7 +53,13 @@ class Children(models.Model):
     disability = models.BooleanField('Инвалидность', default=False)
     program_number = models.CharField('Номер программы', blank=True, max_length=100)
 
+    def disability_convert(self):
+        if self.disability:
+            return 'Да'
+        else:
+            return 'Нет'
+
     class Meta:
-        verbose_name = 'Ребенок'
+        verbose_name = 'Ребенка'
         verbose_name_plural = 'Дети'
         ordering = ['pk']
