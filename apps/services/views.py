@@ -1,10 +1,10 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 
-from .serializers import ServicesOfflineSerializer, ServicesVideoSerializer, ServicesSerializer
-from .models import Services
-from .utils import Util
-from ..base.permissions import IsAdminOrReadOnly
+from apps.services.serializers import (
+    ServicesOfflineSerializer, ServicesVideoSerializer, ServicesSerializer)
+from apps.services.models import Services
+from apps.services.utils import Util
 
 
 class ServicesOfflineAPIView(generics.GenericAPIView):
@@ -38,4 +38,3 @@ class ServicesVideoAPIView(generics.GenericAPIView):
 class ServicesListAPIView(generics.RetrieveAPIView):
     queryset = Services.objects.all()
     serializer_class = ServicesSerializer
-    permission_classes = (IsAdminOrReadOnly,)

@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import generics
 
-from ..base.permissions import IsOwnerProfile
-from .serializers import *
+from apps.base.permissions import IsOwnerProfile
+from apps.users.serializers import *
 
 
 class UserDetailsAPIView(generics.RetrieveUpdateAPIView):

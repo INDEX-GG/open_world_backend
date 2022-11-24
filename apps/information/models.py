@@ -1,6 +1,6 @@
 from django.db import models
 
-from .utils import Util
+from apps.information.utils import Util
 
 
 class Video(models.Model):
@@ -76,14 +76,13 @@ class About(models.Model):
 class AboutDocs(models.Model):
     about = models.ForeignKey(About, on_delete=models.CASCADE, related_name='about')
     title = models.CharField('Заголовок', blank=True, null=True, max_length=255)
-    docs = models.FileField(blank=True, null=True, upload_to='docs/about/')
+    docs = models.FileField('Документ', blank=True, null=True, upload_to='docs/about/')
 
     def __str__(self):
         return self.title
 
     def src(self):
-        url = self.docs.url
-        return url
+        return self.docs.url
 
     class Meta:
         verbose_name = 'Документация в разделе о нас'
@@ -104,14 +103,13 @@ class Recommendations(models.Model):
 class RecommendationsDocs(models.Model):
     recommendations = models.ForeignKey(Recommendations, on_delete=models.CASCADE, related_name='recommendations')
     title = models.CharField('Заголовок', blank=True, null=True, max_length=255)
-    docs = models.FileField(blank=True, null=True, upload_to='docs/recommendations/')
+    docs = models.FileField('Документ', blank=True, null=True, upload_to='docs/recommendations/')
 
     def __str__(self):
         return self.title
 
     def src(self):
-        url = self.docs.url
-        return url
+        return self.docs.url
 
     class Meta:
         verbose_name = 'Методические материалы'

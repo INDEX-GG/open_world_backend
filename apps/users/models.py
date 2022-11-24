@@ -1,11 +1,10 @@
 import json
 
 from django.db import models
-from django.contrib.auth.models import (
-    AbstractBaseUser, PermissionsMixin)
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from ..authentication.models import UserManager
+from apps.authentication.models import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):

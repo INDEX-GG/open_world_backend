@@ -1,9 +1,8 @@
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 
-from apps.base.permissions import IsAdminOrReadOnly
-from .serializers import NewsSerializer
-from .models import News
+from apps.news.serializers import NewsSerializer
+from apps.news.models import News
 
 
 class NewsViewSetPagination(PageNumberPagination):
@@ -15,11 +14,9 @@ class NewsViewSetPagination(PageNumberPagination):
 class NewsAPIView(generics.ListAPIView):
     queryset = News.objects.all().order_by('-pk')
     serializer_class = NewsSerializer
-    permission_classes = (IsAdminOrReadOnly,)
     pagination_class = NewsViewSetPagination
 
 
 class NewsItemAPIView(generics.RetrieveAPIView):
     queryset = News.objects.all()
     serializer_class = NewsSerializer
-    permission_classes = (IsAdminOrReadOnly,)

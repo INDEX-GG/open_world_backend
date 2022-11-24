@@ -1,11 +1,10 @@
-from rest_framework import serializers, status
 from django.contrib import auth
+from rest_framework import serializers, status, exceptions
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-from rest_framework import exceptions
 
 from .models import EmailCode, ResetEmailCode
-from ..users.models import User
+from apps.users.models import User
 
 
 class SendCodeSerializer(serializers.ModelSerializer):

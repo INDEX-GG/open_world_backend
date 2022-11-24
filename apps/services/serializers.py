@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from .models import ServicesForm, Services, ServicesItem
+from apps.services.models import (
+    ServicesForm, Services, ServicesItem)
 
 
 class ServicesOfflineSerializer(serializers.ModelSerializer):

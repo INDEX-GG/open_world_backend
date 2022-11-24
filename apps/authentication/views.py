@@ -16,8 +16,8 @@ class SendCodeAPIView(generics.CreateAPIView):
     serializer_class = SendCodeSerializer
 
     def create(self, request):
-        email_serializer = SendCodeSerializer(data=request.data)
-        email_serializer.is_valid(raise_exception=True)
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         email = request.data['email']
 
@@ -46,9 +46,9 @@ class ConfirmationCodeAPIView(generics.GenericAPIView):
     serializer_class = ConfirmationCodeSerializer
 
     def post(self, request):
-        verify_serializer = ConfirmationCodeSerializer(data=request.data)
-        verify_serializer.is_valid(raise_exception=True)
-        data = verify_serializer.data
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
         code = data.get('code')
         email = data.get('email')
 
@@ -91,8 +91,8 @@ class ResetSendCodeAPIView(generics.CreateAPIView):
     serializer_class = ResetSendCodeSerializer
 
     def create(self, request):
-        email_serializer = ResetSendCodeSerializer(data=request.data)
-        email_serializer.is_valid(raise_exception=True)
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
         email = request.data['email']
 
         if User.objects.filter(email=email).exists():
@@ -117,9 +117,9 @@ class ResetConfirmationCodeAPIView(generics.GenericAPIView):
     serializer_class = ResetConfirmationCodeSerializer
 
     def post(self, request):
-        verify_serializer = ResetConfirmationCodeSerializer(data=request.data)
-        verify_serializer.is_valid(raise_exception=True)
-        data = verify_serializer.data
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.data
         code = data.get('code')
         email = data.get('email')
 

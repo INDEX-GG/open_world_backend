@@ -1,7 +1,7 @@
 from import_export import resources
 from import_export.fields import Field
 
-from .models import User, Children
+from apps.users.models import User, Children
 
 
 class UserResource(resources.ModelResource):

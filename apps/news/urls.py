@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from apps.news import views
 
 urlpatterns = [
     path('news/', views.NewsAPIView.as_view()),

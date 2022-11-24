@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import News, Images
+from apps.news.models import News, Images
 
 
 class ImageInline(admin.TabularInline):

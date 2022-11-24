@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import User, Children
+from apps.users.models import User, Children
 
 
 class ChildrenSerializer(serializers.ModelSerializer):

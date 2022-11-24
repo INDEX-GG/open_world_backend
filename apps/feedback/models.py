@@ -14,6 +14,13 @@ class Feedback(models.Model):
     email = models.CharField(max_length=255, blank=True, null=True)
     communication = models.CharField(max_length=255, blank=True, null=True)
 
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = 'Форма обратной связи'
+        verbose_name_plural = 'Форма обратной связи'
+
 
 class Questions(models.Model):
     title = models.CharField('Заголовок', max_length=255)

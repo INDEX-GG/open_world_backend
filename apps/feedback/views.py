@@ -1,10 +1,9 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework import status
 
-from .serializers import FeedbackSerializer, QuestionsSerializer
-from .utils import Util
-from .models import Questions
+from apps.feedback.serializers import FeedbackSerializer, QuestionsSerializer
+from apps.feedback.models import Questions
+from apps.feedback.utils import Util
 from apps.base.permissions import IsAdminOrReadOnly
 
 

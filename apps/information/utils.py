@@ -1,16 +1,15 @@
-import json
-
 # API client library
 import googleapiclient.discovery
 import googleapiclient.errors
 
 from urllib.parse import urlparse, parse_qs
 
+from config.config import DEVELOPER_KEY
 
 # API information
 api_service_name = "youtube"
 api_version = "v3"
-DEVELOPER_KEY = 'AIzaSyDwaOGOtXS5hDA4C787eCIJJb9bPr9eDU4'
+
 # API client
 youtube = googleapiclient.discovery.build(
     api_service_name, api_version, developerKey=DEVELOPER_KEY)
@@ -44,6 +43,5 @@ class Util:
             fields="items(snippet(description))"
         )
 
-        response = request.execute()
-        data = response
+        data = request.execute()
         return data['items'][0]['snippet']['description']

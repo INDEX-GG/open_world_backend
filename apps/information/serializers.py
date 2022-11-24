@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import (
+
+from apps.information.models import (
     Video, Games, GamesImages, Contacts, About, AboutDocs, Recommendations, RecommendationsDocs)
 
 

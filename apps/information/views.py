@@ -1,12 +1,10 @@
-from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 
-from apps.base.permissions import IsAdminOrReadOnly
-from .serializers import (
+from apps.information.serializers import (
     VideoSerializer, GamesSerializer, ContactsSerializer, AboutSerializer,
     RecommendationsSerializer)
-from .models import (
+from apps.information.models import (
     Video, Games, Contacts, About, Recommendations)
 
 
@@ -19,7 +17,6 @@ class VideoPagination(PageNumberPagination):
 class VideoAPIView(generics.ListAPIView):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
-    permission_classes = (IsAdminOrReadOnly,)
     pagination_class = VideoPagination
 
 
@@ -32,29 +29,24 @@ class GamesPagination(PageNumberPagination):
 class GamesAPIView(generics.ListAPIView):
     queryset = Games.objects.all().order_by('-pk')
     serializer_class = GamesSerializer
-    permission_classes = (IsAdminOrReadOnly,)
     pagination_class = GamesPagination
 
 
 class GamesItemAPIView(generics.RetrieveAPIView):
     queryset = Games.objects.all()
     serializer_class = GamesSerializer
-    permission_classes = (IsAdminOrReadOnly,)
 
 
 class RecommendationsAPIView(generics.ListAPIView):
     queryset = Recommendations.objects.all().order_by('-pk')
     serializer_class = RecommendationsSerializer
-    permission_classes = (IsAdminOrReadOnly,)
 
 
 class ContactsAPIView(generics.ListAPIView):
     queryset = Contacts.objects.all()
     serializer_class = ContactsSerializer
-    permission_classes = (IsAdminOrReadOnly,)
 
 
 class AboutAPIView(generics.ListAPIView):
     queryset = About.objects.all()
     serializer_class = AboutSerializer
-    permission_classes = (IsAdminOrReadOnly,)

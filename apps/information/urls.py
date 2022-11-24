@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from apps.information import views
 
 urlpatterns = [
     path('information/video/', views.VideoAPIView.as_view()),

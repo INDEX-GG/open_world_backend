@@ -23,5 +23,4 @@ class Images(models.Model):
         verbose_name_plural = 'Картинки'
 
     def src(self):
-        url = self.image.url
-        return url
+        return self.image.url

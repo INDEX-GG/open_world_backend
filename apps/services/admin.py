@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Services, ServicesItem
+
+from apps.services.models import Services, ServicesItem
 
 
 class ServicesItemInline(admin.TabularInline):
@@ -12,5 +13,3 @@ class ServicesAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ['title']
     inlines = [ServicesItemInline, ]
-
-
