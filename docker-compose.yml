@@ -1,8 +1,8 @@
 version: "3.9"
 services:
   web:
-    image: altay
-    container_name: altay
+    image: open_world
+    container_name: open_world
     command: sh -c "python manage.py collectstatic --noinput &&
                     python manage.py migrate &&
                     gunicorn --bind 0.0.0.0:8000 config.wsgi"
