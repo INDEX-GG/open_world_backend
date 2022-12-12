@@ -15,9 +15,6 @@ class ServicesForm(models.Model):
 class Services(models.Model):
     title = models.JSONField("Файл", blank=True, null=True, max_length=255)
 
-    def __str__(self):
-        return "Сервисы"
-
     class Meta:
         verbose_name = 'Сервисы'
         verbose_name_plural = 'Сервисы'
