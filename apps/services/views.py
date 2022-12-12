@@ -35,6 +35,6 @@ class ServicesVideoAPIView(generics.GenericAPIView):
             return Response({'result': False, 'email': ['Ошибка отправления']}, status=status.HTTP_404_NOT_FOUND)
 
 
-class ServicesListAPIView(generics.RetrieveAPIView):
+class ServicesListAPIView(generics.ListAPIView):
     queryset = Services.objects.all()
     serializer_class = ServicesSerializer

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from apps.services.models import (
-    ServicesForm, Services, ServicesItem)
+    ServicesForm, Services)
 
 
 class ServicesOfflineSerializer(serializers.ModelSerializer):
@@ -18,15 +18,8 @@ class ServicesVideoSerializer(serializers.ModelSerializer):
                   'email', 'question', 'services_name']
 
 
-class ServicesItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ServicesItem
-        fields = ['id', 'job', 'address', 'phone']
-
-
 class ServicesSerializer(serializers.ModelSerializer):
-    services = ServicesItemSerializer(many=True, read_only=True)
 
     class Meta:
         model = Services
-        fields = ['id', 'title', 'services']
+        fields = '__all__'

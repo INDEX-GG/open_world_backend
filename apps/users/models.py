@@ -52,6 +52,9 @@ class Children(models.Model):
     disability = models.BooleanField('Инвалидность', default=False)
     program_number = models.CharField('Номер программы', blank=True, max_length=100)
 
+    def __str__(self):
+        return self.name
+
     def disability_convert(self):
         if self.disability:
             return 'Да'

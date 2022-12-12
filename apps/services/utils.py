@@ -1,4 +1,6 @@
+import json
 from django.core.mail import send_mail
+# from django.contrib.postgres.forms import InvalidJSONInput, JSONField
 
 from config.config import EMAIL_HOST_USER, EMAIL_RECIPIENT
 
@@ -29,3 +31,10 @@ class Util:
         recipient_list = [EMAIL_RECIPIENT, ]
         result = send_mail(subject, message, from_email, recipient_list)
         return result
+
+
+# class ReadableJSONFormField(JSONField):
+#     def prepare_value(self, value):
+#         if isinstance(value, InvalidJSONInput):
+#             return value
+#         return json.dumps(value, ensure_ascii=False, indent=4)

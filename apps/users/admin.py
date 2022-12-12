@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from import_export.admin import ImportExportModelAdmin, ExportActionModelAdmin
+from import_export.admin import ExportActionModelAdmin
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 
 from apps.users.models import User, Children
@@ -20,8 +20,8 @@ class UserAdmin(ExportActionModelAdmin):
     exclude = ('code', 'password')
 
 
-class ChildrenAdmin(ImportExportModelAdmin):
-    list_display = ['name']
+class ChildrenAdmin(ExportActionModelAdmin):
+    list_display = ['id', 'name']
     resource_class = ChildrenResource
 
 
