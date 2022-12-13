@@ -95,7 +95,7 @@ class ResetSendCodeAPIView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         email = request.data['email']
 
-        if User.objects.filter(email='contact-center.burarrc@mail.ru'):
+        if email == 'contact-center.burarrc@mail.ru':
             return Response({"result": False, "email": ['Не удалось отправить код']},
                             status=status.HTTP_404_NOT_FOUND)
 
