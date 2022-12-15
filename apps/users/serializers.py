@@ -15,10 +15,18 @@ class ChildrenItemSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'lastname', 'patronymic', 'age', 'disability', 'program_number']
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserDetailSerializer(serializers.ModelSerializer):
     parents_children = ChildrenSerializer(many=True, read_only=True)
     email = serializers.EmailField(max_length=64, read_only=True)
 
     class Meta:
         model = User
         fields = ['id', 'email', 'name', 'lastname', 'patronymic', 'phone', 'parents_children']
+
+
+class UserDeleteSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(max_length=64, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'email']

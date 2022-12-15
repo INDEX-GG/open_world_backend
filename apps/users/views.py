@@ -6,7 +6,7 @@ from apps.users.serializers import *
 
 
 class UserDetailsAPIView(generics.RetrieveUpdateAPIView):
-    serializer_class = UserSerializer
+    serializer_class = UserDetailSerializer
     permission_classes = (IsOwnerProfile,)
 
     def get_object(self):
@@ -14,6 +14,14 @@ class UserDetailsAPIView(generics.RetrieveUpdateAPIView):
 
     def get_queryset(self):
         return get_user_model().objects.none()
+
+
+class UserDeleteAPIView(generics.DestroyAPIView):
+    serializer_class = UserDeleteSerializer
+    permission_classes = (IsOwnerProfile,)
+
+    def get_object(self):
+        return self.request.user
 
 
 class ChildrenAPIView(generics.CreateAPIView):
