@@ -27,10 +27,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_cleanup.apps.CleanupConfig',
     'drf_yasg',
     'rest_framework',
     'corsheaders',
-    # 'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'import_export',
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apps.feedback.apps.FeedbackConfig',
     'apps.information.apps.InformationConfig',
     'apps.services.apps.ServicesConfig',
+    'apps.download_app.apps.AndroidConfig',
 ]
 
 MIDDLEWARE = [
