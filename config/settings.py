@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.information.apps.InformationConfig',
     'apps.services.apps.ServicesConfig',
     'apps.download_app.apps.AndroidConfig',
+    'apps.catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
@@ -106,9 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Barnaul'
 
 USE_I18N = True
 
