@@ -28,3 +28,23 @@ class Util:
         recipient_list = [EMAIL_RECIPIENT, ]
         result = send_mail(subject, message, from_email, recipient_list)
         return result
+
+
+class SendFeedbackMessage:
+    @staticmethod
+    def send_feedback_mail(data):
+        for i in data:
+            if data[i] == '':
+                data[i] = 'Не указано'
+            else:
+                continue
+
+        subject = 'Обратная связь'
+        message = f'Имя: {data["name"]}\n' \
+                  f'Адрес электронной почты: {data["email"]}\n' \
+                  f'Номер телефона: {data["phone"]}\n' \
+                  f'Сообщение: {data["message"]}\n'
+        from_email = EMAIL_HOST_USER
+        recipient_list = [EMAIL_RECIPIENT, ]
+        result = send_mail(subject, message, from_email, recipient_list)
+        return result

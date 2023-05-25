@@ -20,3 +20,5 @@ class NewsAdmin(admin.ModelAdmin):
     save_on_top = True
     list_display = ['title']
     inlines = [ImageInline, ]
+    readonly_fields = ('created_at',)
+

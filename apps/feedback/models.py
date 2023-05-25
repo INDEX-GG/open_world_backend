@@ -33,3 +33,15 @@ class Questions(models.Model):
         verbose_name = 'Часто задаваемые вопросы'
         verbose_name_plural = 'Часто задаваемые вопросы'
         ordering = ['-pk']
+
+
+class FeedbackMessage(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Имя')
+    email = models.EmailField(max_length=255, verbose_name='Email')
+    phone = models.CharField(max_length=50, verbose_name='Телефон')
+    message = models.TextField(verbose_name='Текст сообщения')
+
+    class Meta:
+        verbose_name = 'Обратная связь с сайта'
+        verbose_name_plural = 'Обратная связь с сайта'
+        ordering = ['-pk']
