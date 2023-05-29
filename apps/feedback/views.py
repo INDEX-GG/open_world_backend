@@ -33,6 +33,9 @@ class QuestionsItemAPIView(generics.RetrieveAPIView):
     permission_classes = (IsAdminOrReadOnly,)
 
 
+class FeedbackMessageAPIView(generics.GenericAPIView):
+    serializer_class = FeedbackMessageSerializer
+
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
