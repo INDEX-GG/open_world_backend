@@ -23,13 +23,13 @@ class TableAboutCenterSerializer(serializers.ModelSerializer):
 class TableContactsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TableContacts
-        fields = ['name', 'address', 'phone']
+        fields = ['content_1', 'content_2', 'content_3']
 
 
 class TableWorktimeSerializer(serializers.ModelSerializer):
     class Meta:
         model = TableWorktime
-        fields = ['day', 'time']
+        fields = ['content_1', 'content_2']
 
 
 class TableDepartmentOMRSerializer(serializers.ModelSerializer):

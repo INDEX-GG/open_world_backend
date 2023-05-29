@@ -29,9 +29,9 @@ class TableAboutCenter(models.Model):
 
 
 class TableContacts(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Наименование')
-    address = models.CharField(max_length=255, verbose_name='Адрес')
-    phone = models.CharField(max_length=255, verbose_name='Телефон')
+    content_1 = models.CharField(max_length=255, verbose_name='Наименование')
+    content_2 = models.CharField(max_length=255, verbose_name='Адрес')
+    content_3 = models.CharField(max_length=255, verbose_name='Телефон')
 
     class Meta:
         verbose_name = '3 - Таблица - Контакты'
@@ -39,8 +39,8 @@ class TableContacts(models.Model):
 
 
 class TableWorktime(models.Model):
-    day = models.CharField(max_length=255, verbose_name='Дни недели')
-    time = models.CharField(max_length=255, verbose_name='Время работы')
+    content_1 = models.CharField(max_length=255, verbose_name='Дни недели')
+    content_2 = models.CharField(max_length=255, verbose_name='Время работы')
 
     class Meta:
         verbose_name = '4 - Таблица - Режим работы'

@@ -79,7 +79,7 @@ class ContentImgAdmin(admin.ModelAdmin):
 
 
 class TableContactsAdmin(admin.ModelAdmin):
-    list_display = ['name', 'address', 'phone']
+    list_display = ['content_1', 'content_2', 'content_3']
     ordering = ['id']
 
 
@@ -89,7 +89,7 @@ class TableAboutCenterAdmin(admin.ModelAdmin):
 
 
 class TableWorktimeAdmin(admin.ModelAdmin):
-    list_display = ['day', 'time']
+    list_display = ['content_1', 'content_2']
     ordering = ['id']
 
 
