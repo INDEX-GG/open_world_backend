@@ -209,10 +209,11 @@ class Elements(models.Model):
     section = models.ForeignKey(Sections, on_delete=models.CASCADE, related_name='section',  verbose_name='Раздел', null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        # Генерация значения slug на основе транслитерации поля title
-        self.slug = unicode_slugify(self.title)
-        # Генерация значения path на основе Sections.path и Elements.slug
-        self.path = f"{self.section.path}/{self.slug}"
+        if self.title != 'Новости':
+            # Генерация значения slug на основе транслитерации поля title
+            self.slug = unicode_slugify(self.title)
+            # Генерация значения path на основе Sections.path и Elements.slug
+            self.path = f"{self.section.path}/{self.slug}"
         super().save(*args, **kwargs)
 
     def validate_unique(self, exclude=None):
@@ -236,6 +237,7 @@ class Content(models.Model):
         ('text', 'Текст'),
         ('img', 'Изображение'),
         ('pdf', 'PDF-файл'),
+        ('map', 'Карта - как пройти'),
         ('table_horizontal', 'Горизонтальная таблица'),
         ('table_vertical', 'Вертикальная таблица'),
     )

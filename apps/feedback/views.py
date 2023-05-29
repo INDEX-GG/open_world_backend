@@ -33,15 +33,15 @@ class QuestionsItemAPIView(generics.RetrieveAPIView):
     permission_classes = (IsAdminOrReadOnly,)
 
 
-def post(self, request):
-    serializer = self.serializer_class(data=request.data)
-    serializer.is_valid(raise_exception=True)
-    data = serializer.validated_data
-    try:
-        created = SendFeedbackMessage.send_feedback_mail(data)
-        if created:
-            return Response(True, status=status.HTTP_200_OK)
-        else:
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+        try:
+            created = SendFeedbackMessage.send_feedback_mail(data)
+            if created:
+                return Response(True, status=status.HTTP_200_OK)
+            else:
+                return Response(False, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
             return Response(False, status=status.HTTP_404_NOT_FOUND)
-    except Exception as e:
-        return Response(False, status=status.HTTP_404_NOT_FOUND)
