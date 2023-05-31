@@ -1,7 +1,7 @@
 from django.contrib import admin
 from apps.catalog.models import Sections, Elements, Content, ContentPdf, ContentImg, TableContacts, TableAboutCenter, \
     TableWorktime, TableDepartmentOMR, TableDepartmentSt, TableDepartmentPPP, TableDepartmentCMR, TableDepartmentDP, \
-    SectionApp, SectionPhone, SectionPartner
+    SectionApp, SectionPhone, SectionPartner, GosTask
 
 
 admin.site.site_header = 'Панель администратора'
@@ -72,6 +72,26 @@ class ContentPdfAdmin(admin.ModelAdmin):
     ordering = ['id']
 
 
+class GosTaskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'pdf_name', 'pdf_link', 'pdf_auto_open')
+
+    def pdf_name(self, obj):
+        return obj.pdf.name if obj.pdf else None
+
+    def pdf_link(self, obj):
+        return obj.pdf.link if obj.pdf else None
+
+    def pdf_auto_open(self, obj):
+        if obj.pdf.autoOpen:
+            return "Да"
+        else:
+            return "Нет"
+
+    pdf_name.short_description = 'Название файла'
+    pdf_link.short_description = 'Путь к файлу'
+    pdf_auto_open.short_description = 'Развернут'
+
+
 class ContentImgAdmin(admin.ModelAdmin):
     list_display = ['name', 'alt', 'url']
     fields = ['name', 'alt', 'file']
@@ -84,7 +104,7 @@ class TableContactsAdmin(admin.ModelAdmin):
 
 
 class TableAboutCenterAdmin(admin.ModelAdmin):
-    list_display = ['location', 'contacts', 'email', "worktime"]
+    list_display = ['content_1', 'content_2', 'content_3', 'content_4']
     ordering = ['id']
 
 
@@ -94,27 +114,27 @@ class TableWorktimeAdmin(admin.ModelAdmin):
 
 
 class TableDepartmentOMRAdmin(admin.ModelAdmin):
-    list_display = ['name', 'position', 'worktime', 'phone']
+    list_display = ['content_1', 'content_2', 'content_3', 'content_4']
     ordering = ['id']
 
 
 class TableDepartmentStAdmin(admin.ModelAdmin):
-    list_display = ['name', 'position', 'worktime', 'phone']
+    list_display = ['content_1', 'content_2', 'content_3', 'content_4']
     ordering = ['id']
 
 
 class TableDepartmentPPPAdmin(admin.ModelAdmin):
-    list_display = ['name', 'position', 'worktime', 'phone']
+    list_display = ['content_1', 'content_2', 'content_3', 'content_4']
     ordering = ['id']
 
 
 class TableDepartmentCMRAdmin(admin.ModelAdmin):
-    list_display = ['name', 'position', 'worktime', 'phone']
+    list_display = ['content_1', 'content_2', 'content_3', 'content_4']
     ordering = ['id']
 
 
 class TableDepartmentDPAdmin(admin.ModelAdmin):
-    list_display = ['name', 'position', 'worktime', 'phone']
+    list_display = ['content_1', 'content_2', 'content_3', 'content_4']
     ordering = ['id']
 
 
@@ -133,3 +153,4 @@ admin.site.register(TableDepartmentSt, TableDepartmentStAdmin)
 admin.site.register(TableDepartmentPPP, TableDepartmentPPPAdmin)
 admin.site.register(TableDepartmentCMR, TableDepartmentCMRAdmin)
 admin.site.register(TableDepartmentDP, TableDepartmentDPAdmin)
+admin.site.register(GosTask, GosTaskAdmin)

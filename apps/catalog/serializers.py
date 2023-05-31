@@ -17,7 +17,7 @@ class ContentImgSerializer(serializers.ModelSerializer):
 class TableAboutCenterSerializer(serializers.ModelSerializer):
     class Meta:
         model = TableAboutCenter
-        fields = ('location', 'contacts', 'email', 'worktime',)
+        fields = ('content_1', 'content_2', 'content_3', 'content_4')
 
 
 class TableContactsSerializer(serializers.ModelSerializer):
@@ -35,31 +35,31 @@ class TableWorktimeSerializer(serializers.ModelSerializer):
 class TableDepartmentOMRSerializer(serializers.ModelSerializer):
     class Meta:
         model = TableDepartmentOMR
-        fields = ['name', 'position', 'worktime', 'phone']
+        fields = ('content_1', 'content_2', 'content_3', 'content_4')
 
 
 class TableDepartmentStSerializer(serializers.ModelSerializer):
     class Meta:
         model = TableDepartmentSt
-        fields = ['name', 'position', 'worktime', 'phone']
+        fields = ('content_1', 'content_2', 'content_3', 'content_4')
 
 
 class TableDepartmentPPPSerializer(serializers.ModelSerializer):
     class Meta:
         model = TableDepartmentPPP
-        fields = ['name', 'position', 'worktime', 'phone']
+        fields = ('content_1', 'content_2', 'content_3', 'content_4')
 
 
 class TableDepartmentCMRSerializer(serializers.ModelSerializer):
     class Meta:
         model = TableDepartmentCMR
-        fields = ['name', 'position', 'worktime', 'phone']
+        fields = ('content_1', 'content_2', 'content_3', 'content_4')
 
 
 class TableDepartmentDPSerializer(serializers.ModelSerializer):
     class Meta:
         model = TableDepartmentDP
-        fields = ['name', 'position', 'worktime', 'phone']
+        fields = ('content_1', 'content_2', 'content_3', 'content_4')
 
 
 class SectionAppSerializer(serializers.ModelSerializer):
@@ -188,3 +188,15 @@ class SectionsJSONSerializer(serializers.Serializer):
         if sections_data:
             return SectionsDataSerializer(sections_data).data  # Serialize the single object directly
         return None
+
+
+class GosTaskSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='pdf.name')
+    link = serializers.CharField(source='pdf.link')
+    autoOpen = serializers.BooleanField(source='pdf.autoOpen')
+
+    ordering_fields = "-id"
+
+    class Meta:
+        model = GosTask
+        fields = ['name', 'link', 'autoOpen']

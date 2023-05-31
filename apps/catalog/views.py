@@ -24,6 +24,15 @@ class SectionsAPIView(generics.ListAPIView):
     queryset = Sections.objects.all()
     serializer_class = SectionsJSONSerializer
 
+    def get_queryset(self):
+        queryset = Sections.objects.all()
+        path_value = self.kwargs.get('path_value')
+        if path_value:
+            queryset = queryset.filter(path=path_value)
+            if not queryset:
+                queryset = Sections.objects.all()
+        return queryset
+
 
 class TableContactsAPIView(generics.ListAPIView):
     queryset = TableContacts.objects.all()
@@ -86,3 +95,43 @@ class SearchAPIView(APIView):
             return Response(response_data)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+class CatalogElementsAPIView(APIView):
+    def get(self, request, path_value):
+        try:
+            element = Elements.objects.get(path=path_value)  # Найти Elements по динамическому значению пути
+            content = element.content.all()  # Получить связанные с Elements объекты Content
+            section = element.section
+
+            content_serializer = ContentSerializer(content, many=True)
+
+            elements_data = {
+                'slug': element.slug,
+                'path': element.path,
+                'title': element.title,
+                'content': content_serializer.data
+            }
+
+            serializer = SectionsJSONSerializer(section)
+            data = {
+                'title': serializer.data['title'],
+                'slug': serializer.data['slug'],
+                'path': serializer.data['path'],
+                'element': elements_data
+            }
+
+            return Response(data, status=status.HTTP_200_OK)
+        except Elements.DoesNotExist:
+            try:
+                section = Sections.objects.get(path=path_value)
+                serializer = SectionsJSONSerializer(section)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except Sections.DoesNotExist:
+                return Response("Страница не найдена", status=status.HTTP_404_NOT_FOUND)
+
+
+class GosTaskAPIView(generics.ListAPIView):
+    queryset = GosTask.objects.all()
+    serializer_class = GosTaskSerializer
+

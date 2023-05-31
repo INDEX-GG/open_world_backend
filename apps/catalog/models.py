@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
-from os.path import join
-from config import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator
 from slugify import slugify as unicode_slugify
+from datetime import datetime
+import os
 
 
 def validate_image_extension(value):
@@ -15,15 +15,16 @@ def validate_image_extension(value):
 
 
 class TableAboutCenter(models.Model):
-    location = models.CharField(max_length=255, verbose_name='Место нахождения учреждения')
-    contacts = models.CharField(max_length=255, verbose_name='Телефоны/факс')
-    email = models.CharField(max_length=255, verbose_name='E-mail')
-    worktime = models.CharField(max_length=255, verbose_name='Режим работы')
+    content_1 = models.CharField(max_length=255, verbose_name='Место нахождения учреждения')
+    content_2 = models.CharField(max_length=255, verbose_name='Телефоны/факс')
+    content_3 = models.CharField(max_length=255, verbose_name='E-mail')
+    content_4 = models.CharField(max_length=255, verbose_name='Режим работы')
 
     def __str__(self):
         return "Таблица - О центре"
 
     class Meta:
+        ordering = ['id']
         verbose_name = '2 - Таблица - О центре'
         verbose_name_plural = '2 - Таблица - О центре'
 
@@ -34,6 +35,7 @@ class TableContacts(models.Model):
     content_3 = models.CharField(max_length=255, verbose_name='Телефон')
 
     class Meta:
+        ordering = ['id']
         verbose_name = '3 - Таблица - Контакты'
         verbose_name_plural = '3 - Таблица - Контакты'
 
@@ -43,66 +45,72 @@ class TableWorktime(models.Model):
     content_2 = models.CharField(max_length=255, verbose_name='Время работы')
 
     class Meta:
+        ordering = ['id']
         verbose_name = '4 - Таблица - Режим работы'
         verbose_name_plural = '4 - Таблица - Режим работы'
 
 
 ### 1 Таблица - Отделение организационно-методической работы
 class TableDepartmentOMR(models.Model):
-    name = models.CharField(max_length=255, verbose_name="ФИО")
-    position = models.CharField(max_length=255, verbose_name="Должность")
-    worktime = models.CharField(max_length=255, verbose_name="Режим Работы")
-    phone = models.CharField(max_length=255, verbose_name="Телефон")
+    content_1 = models.CharField(max_length=255, verbose_name="ФИО")
+    content_2 = models.CharField(max_length=255, verbose_name="Должность")
+    content_3 = models.CharField(max_length=255, verbose_name="Режим Работы")
+    content_4 = models.CharField(max_length=255, verbose_name="Телефон")
 
     class Meta:
+        ordering = ['id']
         verbose_name = 'Таблица - Отделение организационно-методической работы'
         verbose_name_plural = 'Таблица - Отделение организационно-методической работы'
 
 
 ### 2 Таблица - Стационарное отделение
 class TableDepartmentSt(models.Model):
-    name = models.CharField(max_length=255, verbose_name="ФИО")
-    position = models.CharField(max_length=255, verbose_name="Должность")
-    worktime = models.CharField(max_length=255, verbose_name="Режим Работы")
-    phone = models.CharField(max_length=255, verbose_name="Телефон")
+    content_1 = models.CharField(max_length=255, verbose_name="ФИО")
+    content_2 = models.CharField(max_length=255, verbose_name="Должность")
+    content_3 = models.CharField(max_length=255, verbose_name="Режим Работы")
+    content_4 = models.CharField(max_length=255, verbose_name="Телефон")
 
     class Meta:
+        ordering = ['id']
         verbose_name = 'Таблица - Стационарное отделение'
         verbose_name_plural = 'Таблица - Стационарное отделение'
 
 
 ### 3 Таблица - Отделение психолого-педагогической помощи
 class TableDepartmentPPP(models.Model):
-    name = models.CharField(max_length=255, verbose_name="ФИО")
-    position = models.CharField(max_length=255, verbose_name="Должность")
-    worktime = models.CharField(max_length=255, verbose_name="Режим Работы")
-    phone = models.CharField(max_length=255, verbose_name="Телефон")
+    content_1 = models.CharField(max_length=255, verbose_name="ФИО")
+    content_2 = models.CharField(max_length=255, verbose_name="Должность")
+    content_3 = models.CharField(max_length=255, verbose_name="Режим Работы")
+    content_4 = models.CharField(max_length=255, verbose_name="Телефон")
 
     class Meta:
+        ordering = ['id']
         verbose_name = 'Таблица - Отделение психолого-педагогической помощи'
         verbose_name_plural = 'Таблица - Отделение психолого-педагогической помощи'
 
 
 ### 4 Таблица - Отделение социально-медицинской реабилитации
 class TableDepartmentCMR(models.Model):
-    name = models.CharField(max_length=255, verbose_name="ФИО")
-    position = models.CharField(max_length=255, verbose_name="Должность")
-    worktime = models.CharField(max_length=255, verbose_name="Режим Работы")
-    phone = models.CharField(max_length=255, verbose_name="Телефон")
+    content_1 = models.CharField(max_length=255, verbose_name="ФИО")
+    content_2 = models.CharField(max_length=255, verbose_name="Должность")
+    content_3 = models.CharField(max_length=255, verbose_name="Режим Работы")
+    content_4 = models.CharField(max_length=255, verbose_name="Телефон")
 
     class Meta:
+        ordering = ['id']
         verbose_name = 'Таблица - Отделение социально-медицинской реабилитации'
         verbose_name_plural = 'Таблица - Отделение социально-медицинской реабилитации'
 
 
 ### 5 Таблица - Отделение дневного пребывания
 class TableDepartmentDP(models.Model):
-    name = models.CharField(max_length=255, verbose_name="ФИО")
-    position = models.CharField(max_length=255, verbose_name="Должность")
-    worktime = models.CharField(max_length=255, verbose_name="Режим Работы")
-    phone = models.CharField(max_length=255, verbose_name="Телефон")
+    content_1 = models.CharField(max_length=255, verbose_name="ФИО")
+    content_2 = models.CharField(max_length=255, verbose_name="Должность")
+    content_3 = models.CharField(max_length=255, verbose_name="Режим Работы")
+    content_4 = models.CharField(max_length=255, verbose_name="Телефон")
 
     class Meta:
+        ordering = ['id']
         verbose_name = 'Таблица - Отделение дневного пребывания'
         verbose_name_plural = 'Таблица - Отделение дневного пребывания'
 
@@ -174,10 +182,12 @@ class ContentImg(models.Model):
         verbose_name_plural = "1.2 - Изображения"
 
     def save(self, *args, **kwargs):
-        if self.file:
-            # self.name = self.file.name
-            self.url = join(settings.MEDIA_URL, self.file.field.upload_to, self.file.name)
-        super(ContentImg, self).save(*args, **kwargs)
+        timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
+        file_extension = os.path.splitext(self.file.name)[1]
+        divider = '_'
+        self.file.name = f'{unicode_slugify(self.name)}{divider}{timestamp}{file_extension}'
+        self.url = '/media/images/' + self.file.name
+        super().save(*args, **kwargs)
 
 
 class ContentPdf(models.Model):
@@ -195,11 +205,12 @@ class ContentPdf(models.Model):
         verbose_name_plural = "1.3 - PDF-файлы"
 
     def save(self, *args, **kwargs):
-        if self.file:
-            # Set the name and link fields based on the uploaded file
-            # self.name = self.file.name
-            self.link = join(settings.MEDIA_URL, self.file.field.upload_to, self.file.name)
-        super(ContentPdf, self).save(*args, **kwargs)
+        timestamp = datetime.now().strftime('%d%m%Y_%H%M%S')
+        file_extension = os.path.splitext(self.file.name)[1]
+        divider = '_'
+        self.file.name = f'{unicode_slugify(self.name)}{divider}{timestamp}{file_extension}'
+        self.link = '/media/pdf/' + self.file.name
+        super().save(*args, **kwargs)
 
 
 class Elements(models.Model):
@@ -209,7 +220,7 @@ class Elements(models.Model):
     section = models.ForeignKey(Sections, on_delete=models.CASCADE, related_name='section',  verbose_name='Раздел', null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        if self.title != 'Новости':
+        if (self.title != 'Новости') and (self.title != 'Государственное задание'):
             # Генерация значения slug на основе транслитерации поля title
             self.slug = unicode_slugify(self.title)
             # Генерация значения path на основе Sections.path и Elements.slug
@@ -281,3 +292,17 @@ class Content(models.Model):
         ordering = ['id']
         verbose_name = "1.1 - Контент страницы"
         verbose_name_plural = "1.1 - Контент страниц"
+
+
+class GosTask(models.Model):
+    pdf = models.OneToOneField(
+        ContentPdf, on_delete=models.CASCADE, null=True, blank=True, verbose_name='PDF-файл'
+    )
+
+    def __str__(self):
+        return 'Государственное задание'
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = "1.1 - Государственное задание"
+        verbose_name_plural = "1.1 - Государственное задание"
