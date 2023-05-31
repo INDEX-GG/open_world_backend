@@ -63,6 +63,14 @@ class SearchAPIView(APIView):
 
         if search_query is not None:
 
+            if search_query.strip() == '' or search_query.isspace():
+                empty_data = [{
+                    "page": []
+                }, {
+                    "news": []
+                }]
+                return Response(empty_data)
+
             results = Elements.objects.filter(
                 Q(title__icontains=search_query) |
                 Q(content__text__icontains=search_query) |
@@ -80,17 +88,11 @@ class SearchAPIView(APIView):
             serialized_news = news_serializer.data
 
             # Формирование результата поиска
-            response_data = []
-
-            # Добавление результатов поиска из модели Elements
-            response_data.append({
+            response_data = [{
                 "page": serializer.data
-            })
-
-            # Добавление результатов поиска из модели News
-            response_data.append({
+            }, {
                 "news": serialized_news
-            })
+            }]
 
             return Response(response_data)
         else:
@@ -134,4 +136,3 @@ class CatalogElementsAPIView(APIView):
 class GosTaskAPIView(generics.ListAPIView):
     queryset = GosTask.objects.all()
     serializer_class = GosTaskSerializer
-
