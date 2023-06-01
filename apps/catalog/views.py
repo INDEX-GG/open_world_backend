@@ -76,14 +76,15 @@ class SearchAPIView(APIView):
                 Q(content__text__icontains=search_query) |
                 Q(content__pdf__name__icontains=search_query) |
                 Q(content__img__name__icontains=search_query)
-            )
+            ).distinct()
+
             serializer = SearchPagesSerializer(results, many=True)
 
             # Дополнительный поиск в модели News
             news_results = News.objects.filter(
                 Q(title__icontains=search_query) |
                 Q(description__icontains=search_query)
-            )
+            ).distinct()
             news_serializer = NewsSerializer(news_results, many=True)
             serialized_news = news_serializer.data
 
