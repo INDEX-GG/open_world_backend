@@ -21,3 +21,4 @@ class FeedbackMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = FeedbackMessage
         fields = ['name', 'email', 'phone', 'message']
+        # spaces added
