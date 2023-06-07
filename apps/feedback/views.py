@@ -43,6 +43,7 @@ class FeedbackMessageAPIView(generics.GenericAPIView):
         try:
             created = SendFeedbackMessage.send_feedback_mail(data)
             if created:
+                serializer.save()
                 return Response(True, status=status.HTTP_200_OK)
             else:
                 return Response(False, status=status.HTTP_404_NOT_FOUND)
